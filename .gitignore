@@ -48,3 +48,7 @@ testem.log
 Thumbs.db
 
 package-lock.json
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

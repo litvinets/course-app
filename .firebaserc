@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "courseapp-c7a46"
+  },
+  "targets": {
+    "courseapp-c7a46": {
+      "hosting": {
+        "course-app": [
+          "courseapp-c7a46"
+        ]
+      }
+    }
+  }
+}

@@ -1,16 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { environment } from '@src/environments/environment';
+import { environment } from '../../src/environments/environment';
 import { HeaderComponent } from './components/header/header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
+import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+import {getFirestore, provideFirestore} from "@angular/fire/firestore";
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 
 @NgModule({
     declarations: [
@@ -24,6 +24,9 @@ import { HeaderComponent } from './components/header/header.component';
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireStorageModule,
+        BrowserAnimationsModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase.config)),
+        provideFirestore(() => getFirestore()),
     ],
     providers: [],
     bootstrap: [AppComponent]
