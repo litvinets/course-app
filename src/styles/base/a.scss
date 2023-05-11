@@ -1,0 +1,17 @@
+.app-a {
+  vertical-align: center;
+  color: $primary;
+  transition: 0.25s;
+  cursor: pointer;
+  margin-right: 1em;
+  align-items: center;
+  display: flex;
+
+  &:hover {
+    color: $primary-dark;
+  }
+
+  &_active {
+    color: $primary-dark;
+  }
+}
