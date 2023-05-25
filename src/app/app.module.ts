@@ -8,6 +8,7 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { AngularFireStorageModule } from "@angular/fire/compat/storage";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { HeaderModule } from "@app/header/header.module";
+import { ShellModule } from "@app/shell/shell.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { HeaderModule } from "@app/header/header.module";
     AngularFireAuthModule,
     AngularFireStorageModule,
     HeaderModule,
+    ShellModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

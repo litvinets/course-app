@@ -9,8 +9,6 @@ import { Constants, Util } from '../shared/index';
 export class HeaderComponent {
   readonly constants = Constants;
 
-  constructor() {}
-
   /*Detects device and opens map*/
   mapLink(): void {
     Util.mapLink();
