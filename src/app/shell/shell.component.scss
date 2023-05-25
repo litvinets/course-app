@@ -1,0 +1,39 @@
+.shell {
+  position: relative;
+  z-index: 1;
+  margin: 0 5rem;
+  padding: 0 5rem;
+  min-height: 100vh;
+
+  &-mobile {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+section .bg {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+
+  &-main {
+    background: url(/assets/main-back.jpg) center center/cover no-repeat;
+    opacity: 1;
+  }
+
+  &-blury {
+    background: url(/assets/blury-back.jpg) center center/cover no-repeat;
+    opacity: .4;
+  }
+}
+
+@media(max-width: 780px) {
+  section {
+    padding: 0;
+  }
+}

@@ -11,6 +11,9 @@ import { ShellComponent } from '../shell/shell.component';
   imports: [
     CommonModule,
     ShellRoutingModule
+  ],
+  exports: [
+    ShellComponent
   ]
 })
 export class ShellModule { }
