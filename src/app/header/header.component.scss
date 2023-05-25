@@ -1,0 +1,17 @@
+@import "/src/styles/zoom-in-zoom-out.scss";
+@import "/src/styles/base/button";
+
+.logo{
+  max-width: 120px;
+  &:hover{
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+.mat-button {
+  .link-button {
+    padding: 0;
+    width: auto;
+  }
+}

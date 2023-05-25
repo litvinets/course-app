@@ -1,0 +1,18 @@
+<div fxLayout="row" fxLayoutAlign="center space-between">
+  <img class="logo zoom-in-zoom-out" src="/assets/logo.png" alt="gradient-logo">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <a href="mailto:gradientprint@ukr.net?subject=Feedback&body=Message" class="app-a">
+      <mat-icon> email</mat-icon>
+      gradientprint@ukr.net
+    </a>
+    <a [href]="constants.PHONE_NUMBER" class="app-a">
+      <mat-icon> call</mat-icon>
+      {{ constants.PHONE_NUMBER }}
+    </a>
+
+    <a (click)="mapLink()" target="_blank" class="app-a">
+      <mat-icon> location_on</mat-icon>
+      {{ constants.ADDRESS }}
+    </a>
+  </div>
+</div>
