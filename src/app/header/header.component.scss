@@ -3,6 +3,9 @@
 
 .logo{
   max-width: 120px;
+  &:hover {
+    opacity: 0.5;
+  }
 }
 
 .mat-button {
