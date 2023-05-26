@@ -10,8 +10,8 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { HeaderModule } from "@app/header/header.module";
 import { ShellModule } from "@app/shell/shell.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FooterComponent } from "./footer/footer.component";
 import { FlexModule } from "@angular/flex-layout";
+import { FooterComponent } from "@app/footer/footer.component";
 
 @NgModule({
   declarations: [AppComponent, FooterComponent],
