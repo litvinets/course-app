@@ -30,3 +30,20 @@ body {
 
   }
 }
+
+.catalog {
+  .mat-list-item {
+    height: auto !important;
+  }
+
+  .mat-list-item-content {
+    flex-direction: column !important;
+    align-items: start !important;
+  }
+}
+
+.mat-divider {
+  margin: 2rem !important;
+  border-top-width: 2px !important;
+}
+

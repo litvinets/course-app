@@ -1,40 +1,67 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from "@angular/core";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { CatalogItem } from "@app/shared";
 
 @Component({
-  selector: 'app-catalog',
-  templateUrl: './catalog.component.html',
-  styleUrls: ['./catalog.component.scss']
+  selector: "app-catalog",
+  templateUrl: "./catalog.component.html",
+  styleUrls: ["./catalog.component.scss"],
+  providers: [MatExpansionModule],
 })
-export class CatalogComponent implements OnInit {
+export class CatalogComponent {
+  productList: CatalogItem[] = [
+    { title: "Плакати" },
+    { title: "Оракал" },
+    { title: "Банери" },
+    { title: "Візитки" },
+    { title: "Листівки" },
+    { title: "Екстендери" },
+    { title: "Бренд-Вол" },
+    { title: "Меню" },
+    { title: "Сіті-лайти" },
+    { title: "Скролл" },
+    { title: "Лайтбокс" },
+    { title: "Метролайти" },
+    { title: "Композит" },
+    { title: "Брендування машин" },
+    { title: "Стенди" },
+    { title: "Розтяжки банерні" },
+    { title: "Таблички" },
+    { title: "Вивіски" },
+    { title: "Вказівники, стрілки" },
+    { title: "Оформлення вітрин, вікон" },
+    { title: "Реклама на стовпах" },
+    { title: "Об’ємні букви" },
+  ];
 
-  productList: string [] = [
-    'Плакати',
-    'Оракал',
-    'Банери',
-    'Візитки',
-    'Листівки',
-    'Екстендери',
-    'Бренд-Вол',
-    'Меню',
-    'Сіті-лайти',
-    'Скролл',
-    'Лайтбокс',
-    'Метролайти',
-    'Композит',
-    'Брендування машин',
-    'Стенди',
-    'Розтяжки банерні',
-    'Таблички',
-    'Вивіски',
-    'Вказівники, стрілки',
-    'Оформлення вітрин, вікон',
-    'Реклама на стовпах',
-    'Об’ємні букви'
-]
+  serviceList: CatalogItem[] = [
+    {
+      title: "Додрукарська підготовка",
+      details: ["Розробка макету", "Ретушування фотографій"],
+    },
+    {
+      title: "Широкоформатний друк",
+      details: [
+        "Інтерєрний друк",
+        "Друк на плівці",
+        "Друк на банері",
+        "Друк на папері",
+      ],
+    },
+    {
+      title: "Післядрукарські послуги",
+      details: ["Встановлення люверсів", "Плотерна порізка"],
+    },
+    { title: "Поклейка бордів, скроллерів і тд" },
+  ];
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  materialList: CatalogItem[] = [
+    { title: "Банер ламінований" },
+    { title: "Бумага плакатна citylight" },
+    { title: "Бумага вологостійка bluback" },
+    { title: "Банерна сітка" },
+    { title: "Плівка біла" },
+    { title: "Плівка прозора" },
+    { title: "Плівка перфорированая" },
+  ];
 }
