@@ -9,11 +9,15 @@ import { AngularFireStorageModule } from "@angular/fire/compat/storage";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { HeaderModule } from "@app/header/header.module";
 import { ShellModule } from "@app/shell/shell.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FlexModule } from "@angular/flex-layout";
+import { FooterComponent } from "@app/footer/footer.component";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FooterComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase.config),
     AngularFirestoreModule,
@@ -21,6 +25,7 @@ import { ShellModule } from "@app/shell/shell.module";
     AngularFireStorageModule,
     HeaderModule,
     ShellModule,
+    FlexModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

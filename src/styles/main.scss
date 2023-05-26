@@ -10,11 +10,40 @@
 
 html,
 body {
-    height: 100%;
-    margin: 0;
-    font-family: $base-font-family;
-    font-size: $base-font-size;
-    line-height: $base-line-height;
-    background: $base;
-    color: $on-base;
+  height: 100%;
+  margin: 0;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  background: $base;
+  color: $on-base;
 }
+
+.nav {
+  .mat-tab-links {
+    display: flex;
+    justify-content: center !important;
+  }
+
+  .mat-tab-link {
+    opacity: 1;
+
+  }
+}
+
+.catalog {
+  .mat-list-item {
+    height: auto !important;
+  }
+
+  .mat-list-item-content {
+    flex-direction: column !important;
+    align-items: start !important;
+  }
+}
+
+.mat-divider {
+  margin: 2rem !important;
+  border-top-width: 2px !important;
+}
+

@@ -1,3 +1,5 @@
+@import "../mixins";
+
 .app-a {
   vertical-align: center;
   color: $primary;
@@ -12,6 +14,14 @@
   }
 
   &_active {
-    color: $primary-dark;
+    @include active-link;
+  }
+}
+
+.nav {
+  .app-a_active {
+    @include active-link;
+    border-bottom: 2px solid $primary-dark;
+    opacity: 1;
   }
 }

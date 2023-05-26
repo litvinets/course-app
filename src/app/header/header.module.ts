@@ -4,6 +4,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "@app/header/header.component";
 import {FlexModule} from '@angular/flex-layout';
+import {AppRoutingModule} from '@app/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {FlexModule} from '@angular/flex-layout';
     CommonModule,
     MatIconModule,
     MatButtonModule,
-    FlexModule
+    FlexModule,
+    AppRoutingModule
   ],
   exports: [
     HeaderComponent

@@ -1,0 +1,9 @@
+<nav class="nav" mat-tab-nav-bar>
+  <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'./catalog'">КАТАЛОГ</a>
+  <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'./requirements'">ВИМОГИ ДО
+    МАКЕТІВ</a>
+  <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'./payments'">ОПЛАТА ТА
+    ДОСТАВКА</a>
+</nav>
+<mat-divider></mat-divider>
+<router-outlet></router-outlet>
