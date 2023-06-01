@@ -1,6 +1,12 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { CatalogItem } from "@app/shared";
+import {
+  AngularFirestore,
+  DocumentChangeAction,
+} from "@angular/fire/compat/firestore";
+import { combineLatest } from "rxjs";
+import { FirebaseCollections } from "@app/shared/constants/firebase-collections";
 
 @Component({
   selector: "app-catalog",
@@ -8,60 +14,40 @@ import { CatalogItem } from "@app/shared";
   styleUrls: ["./catalog.component.scss"],
   providers: [MatExpansionModule],
 })
-export class CatalogComponent {
-  productList: CatalogItem[] = [
-    { title: "Плакати" },
-    { title: "Оракал" },
-    { title: "Банери" },
-    { title: "Візитки" },
-    { title: "Листівки" },
-    { title: "Екстендери" },
-    { title: "Бренд-Вол" },
-    { title: "Меню" },
-    { title: "Сіті-лайти" },
-    { title: "Скролл" },
-    { title: "Лайтбокс" },
-    { title: "Метролайти" },
-    { title: "Композит" },
-    { title: "Брендування машин" },
-    { title: "Стенди" },
-    { title: "Розтяжки банерні" },
-    { title: "Таблички" },
-    { title: "Вивіски" },
-    { title: "Вказівники, стрілки" },
-    { title: "Оформлення вітрин, вікон" },
-    { title: "Реклама на стовпах" },
-    { title: "Об’ємні букви" },
-  ];
+export class CatalogComponent implements OnInit {
+  productList: CatalogItem[];
+  serviceList: CatalogItem[];
+  materialList: CatalogItem[];
 
-  serviceList: CatalogItem[] = [
-    {
-      title: "Додрукарська підготовка",
-      details: ["Розробка макету", "Ретушування фотографій"],
-    },
-    {
-      title: "Широкоформатний друк",
-      details: [
-        "Інтерєрний друк",
-        "Друк на плівці",
-        "Друк на банері",
-        "Друк на папері",
-      ],
-    },
-    {
-      title: "Післядрукарські послуги",
-      details: ["Встановлення люверсів", "Плотерна порізка"],
-    },
-    { title: "Поклейка бордів, скроллерів і тд" },
-  ];
+  constructor(private afs: AngularFirestore) {}
 
-  materialList: CatalogItem[] = [
-    { title: "Банер ламінований" },
-    { title: "Бумага плакатна citylight" },
-    { title: "Бумага вологостійка bluback" },
-    { title: "Банерна сітка" },
-    { title: "Плівка біла" },
-    { title: "Плівка прозора" },
-    { title: "Плівка перфорированая" },
-  ];
+  ngOnInit(): void {
+    this.getCatalogData();
+  }
+
+  private getCatalogData(): void {
+    combineLatest([
+      this.afs.collection(FirebaseCollections.PRODUCTS).snapshotChanges(),
+      this.afs.collection(FirebaseCollections.SERVICES).snapshotChanges(),
+      this.afs.collection(FirebaseCollections.MATERIALS).snapshotChanges(),
+    ]).subscribe(
+      ([products, services, materials]: [
+        DocumentChangeAction<CatalogItem>[],
+        DocumentChangeAction<CatalogItem>[],
+        DocumentChangeAction<CatalogItem>[]
+      ]) => {
+        this.productList = this.mapDataResult(products);
+        this.serviceList = this.mapDataResult(services);
+        this.materialList = this.mapDataResult(materials);
+      }
+    );
+  }
+
+  private mapDataResult(
+    items: DocumentChangeAction<CatalogItem>[]
+  ): CatalogItem[] {
+    return items.map((item: DocumentChangeAction<CatalogItem>) =>
+      item.payload.doc.data()
+    );
+  }
 }

@@ -1,19 +1,20 @@
-<mat-accordion>
-  <!--  Product list-->
-  <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Види продукції', items: productList }">
-  </ng-container>
-  <mat-divider></mat-divider>
+<ng-container *ngIf="productList && serviceList && materialList">
+  <mat-accordion>
+    <!--  Product list-->
+    <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Види продукції', items: productList }">
+    </ng-container>
+    <mat-divider></mat-divider>
 
-  <!--  Service list-->
-  <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Послуги', items: serviceList }">
-  </ng-container>
-  <mat-divider></mat-divider>
+    <!--  Service list-->
+    <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Послуги', items: serviceList }">
+    </ng-container>
+    <mat-divider></mat-divider>
 
-  <!--  Product list-->
-  <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Типи матеріалів', items: materialList }">
-  </ng-container>
-</mat-accordion>
-
+    <!--  Product list-->
+    <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Типи матеріалів', items: materialList }">
+    </ng-container>
+  </mat-accordion>
+</ng-container>
 
 <ng-template #expensionPanelTmpl let-title="title" let-items="items">
   <mat-expansion-panel>
