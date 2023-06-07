@@ -12,6 +12,14 @@ import { ShellModule } from "@app/shell/shell.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FlexModule } from "@angular/flex-layout";
 import { FooterComponent } from "@app/footer/footer.component";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { effects, reducers } from "@app/shared/store";
+
+const StoreDevtools = !environment.production
+  ? StoreDevtoolsModule.instrument({ maxAge: 50 })
+  : [];
 
 @NgModule({
   declarations: [AppComponent, FooterComponent],
@@ -26,6 +34,14 @@ import { FooterComponent } from "@app/footer/footer.component";
     HeaderModule,
     ShellModule,
     FlexModule,
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+      },
+    }),
+    EffectsModule.forRoot(effects),
+    StoreDevtoolsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
