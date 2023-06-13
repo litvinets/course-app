@@ -1,17 +1,17 @@
-<ng-container *ngIf="productList && serviceList && materialList">
+<ng-container *ngIf="catalog$ | async as catalog">
   <mat-accordion>
     <!--  Product list-->
-    <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Види продукції', items: productList }">
+    <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Види продукції', items: catalog.products }">
     </ng-container>
     <mat-divider></mat-divider>
 
     <!--  Service list-->
-    <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Послуги', items: serviceList }">
+    <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Послуги', items: catalog.services }">
     </ng-container>
     <mat-divider></mat-divider>
 
     <!--  Product list-->
-    <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Типи матеріалів', items: materialList }">
+    <ng-container *ngTemplateOutlet="expensionPanelTmpl; context: { title: 'Типи матеріалів', items: catalog.materials }">
     </ng-container>
   </mat-accordion>
 </ng-container>

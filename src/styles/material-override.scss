@@ -1,0 +1,21 @@
+@import "colors";
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: $primary !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: $primary !important;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: $error !important;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label.mat-accent, .mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker {
+  color: $error !important;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
+  background-color: $error !important;
+}

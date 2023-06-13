@@ -1,0 +1,35 @@
+<mat-dialog-content fxLayout="column" fxLayoutAlign="center center">
+
+  <h1 mat-dialog-title>Увійти</h1>
+
+  <form [formGroup]="loginFormGroup" fxLayout="column" fxLayoutAlign="space-between space-between">
+    <mat-form-field>
+      <mat-label>Електронна пошта</mat-label>
+      <input type="email" matInput formControlName="email" placeholder="example@google.com">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Пароль</mat-label>
+      <input matInput formControlName="password" [type]="isHidden ? 'password' : 'text'">
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="isHidden = !isHidden"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="isHidden">
+        <mat-icon>{{isHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <a [href]="" class="app-a" fxLayout="row" fxLayoutAlign="end">Забули пароль?</a>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem">
+  <div fxLayout="row" fxLayoutAlign="center space-between" fxLayoutGap="1rem">
+    <button mat-button mat-dialog-close (click)="onClose()">Повернутися</button>
+    <button mat-button [mat-dialog-close]="loginFormGroup" cdkFocusInitial>Увійти</button>
+  </div>
+  <span fxLayout="row" class="app-a-auth">Ще не зареєстрвоані?
+    <a [routerLink]="'/registration'" (click)="onClose()" class="app-a">Зареєструватися</a>
+  </span>
+</mat-dialog-actions>

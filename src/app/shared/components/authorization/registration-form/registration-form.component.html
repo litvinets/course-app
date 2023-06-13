@@ -1,0 +1,60 @@
+<div class="form" fxLayout="column" fxLayoutAlign="space-between space-between">
+
+  <h1>Зареєструватися</h1>
+
+  <form [formGroup]="registrationFormGroup" fxLayout="column" fxLayoutAlign="space-between space-between">
+    <mat-form-field>
+      <mat-label>Ваше ім'я</mat-label>
+      <input matInput type="text" formControlName="fullName">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Компанія</mat-label>
+      <input matInput type="text" formControlName="company">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Номер телефону</mat-label>
+      <span matPrefix>+380 &nbsp;</span>
+      <input type="tel" matInput formControlName="phone" placeholder="555-555-1234">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="email" placeholder="example@google.com">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Введіть пароль</mat-label>
+      <input matInput formControlName="password" [type]="isHidden ? 'password' : 'text'">
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="isHidden = !isHidden"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="isHidden">
+        <mat-icon>{{isHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Підтвердіть пароль</mat-label>
+      <input matInput formControlName="submitPassword" [type]="isHidden ? 'password' : 'text'">
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="isHidden = !isHidden"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="isHidden">
+        <mat-icon>{{isHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+
+  <div fxLayout="row" fxLayoutAlign="end">
+    <button mat-raised-button (click)="onSubmit()">Зареєструватися</button>
+  </div>
+
+</div>
+
+
+

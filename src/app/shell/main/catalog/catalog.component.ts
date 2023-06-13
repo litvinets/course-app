@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { MatExpansionModule } from "@angular/material/expansion";
-import { Store } from "@ngrx/store";
+import { select, Store } from '@ngrx/store';
 import * as fromCatalog from "../../../shared/store/catalog";
+import { Catalog } from "../../../shared/store/catalog";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-catalog",
@@ -10,6 +12,7 @@ import * as fromCatalog from "../../../shared/store/catalog";
   providers: [MatExpansionModule],
 })
 export class CatalogComponent implements OnInit {
+  catalog$: Observable<Catalog>;
 
   constructor(private store: Store) {}
 
@@ -19,5 +22,6 @@ export class CatalogComponent implements OnInit {
 
   private getCatalogData(): void {
     this.store.dispatch(new fromCatalog.Read());
+    this.catalog$ = this.store.pipe(select(fromCatalog.getCatalog));
   }
 }
