@@ -16,6 +16,8 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { effects, reducers } from "@app/shared/store";
+import { SharedModule } from '@app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const StoreDevtools = !environment.production
   ? StoreDevtoolsModule.instrument({ maxAge: 50 })
@@ -42,6 +44,9 @@ const StoreDevtools = !environment.production
     }),
     EffectsModule.forRoot(effects),
     StoreDevtoolsModule,
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

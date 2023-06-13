@@ -1,0 +1,13 @@
+.mat-dialog-title {
+  margin: 0;
+}
+.app-a {
+  font-size: small;
+  &-auth {
+    font-size: small;
+    padding: 1rem;
+    a {
+      padding-left: 0.5rem;
+    }
+  }
+}
