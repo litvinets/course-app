@@ -1,7 +1,7 @@
-import { CatalogItem } from "@app/shared";
+import { CatalogItemModel } from "@app/shared";
 
 export interface Catalog {
-  products: CatalogItem[];
-  materials: CatalogItem[];
-  services: CatalogItem[];
+  products: CatalogItemModel[];
+  materials: CatalogItemModel[];
+  services: CatalogItemModel[];
 }

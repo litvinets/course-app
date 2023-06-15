@@ -7,11 +7,11 @@ import {
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, Observable, of, switchMap, take, zip } from "rxjs";
 import { FirebaseCollections } from "@app/shared/constants/firebase-collections";
-import { CatalogItem } from "@app/shared";
+import { CatalogItemModel } from "@app/shared";
 import { Catalog } from "@app/shared/store/catalog/catalog.models";
 
 type Action = fromActions.All;
-const documentToItem = (x: DocumentChangeAction<any>): CatalogItem => {
+const documentToItem = (x: DocumentChangeAction<any>): CatalogItemModel => {
   const data = x.payload.doc.data();
   return {
     id: x.payload.doc.id,
@@ -33,8 +33,8 @@ export class CatalogEffects {
             .snapshotChanges()
             .pipe(
               take(1),
-              map((items: DocumentChangeAction<CatalogItem>[]) =>
-                items.map((item: DocumentChangeAction<CatalogItem>) =>
+              map((items: DocumentChangeAction<CatalogItemModel>[]) =>
+                items.map((item: DocumentChangeAction<CatalogItemModel>) =>
                   documentToItem(item)
                 )
               )
@@ -44,8 +44,8 @@ export class CatalogEffects {
             .snapshotChanges()
             .pipe(
               take(1),
-              map((items: DocumentChangeAction<CatalogItem>[]) =>
-                items.map((item: DocumentChangeAction<CatalogItem>) =>
+              map((items: DocumentChangeAction<CatalogItemModel>[]) =>
+                items.map((item: DocumentChangeAction<CatalogItemModel>) =>
                   documentToItem(item)
                 )
               )
@@ -55,8 +55,8 @@ export class CatalogEffects {
             .snapshotChanges()
             .pipe(
               take(1),
-              map((items: DocumentChangeAction<CatalogItem>[]) =>
-                items.map((item: DocumentChangeAction<CatalogItem>) =>
+              map((items: DocumentChangeAction<CatalogItemModel>[]) =>
+                items.map((item: DocumentChangeAction<CatalogItemModel>) =>
                   documentToItem(item)
                 )
               )
@@ -64,9 +64,9 @@ export class CatalogEffects {
         ).pipe(
           map(
             ([products, services, materials]: [
-              CatalogItem[],
-              CatalogItem[],
-              CatalogItem[]
+              CatalogItemModel[],
+              CatalogItemModel[],
+              CatalogItemModel[]
             ]) => {
               const catalog: Catalog = {
                 products,

@@ -2,7 +2,14 @@
 
   <h1>Зареєструватися</h1>
 
-  <form [formGroup]="registrationFormGroup" fxLayout="column" fxLayoutAlign="space-between space-between">
+  <form
+    autocomplete="off"
+    novalidate
+    fxLayout="column"
+    fxLayoutAlign="space-between space-between"
+    [formGroup]="registrationFormGroup"
+    (keyup.enter)="onSubmit()"
+  >
     <mat-form-field>
       <mat-label>Ваше ім'я</mat-label>
       <input matInput type="text" formControlName="fullName">
@@ -26,32 +33,34 @@
 
     <mat-form-field>
       <mat-label>Введіть пароль</mat-label>
-      <input matInput formControlName="password" [type]="isHidden ? 'password' : 'text'">
+      <input matInput formControlName="password" [type]="isPasswordHidden ? 'password' : 'text'">
       <button
         mat-icon-button
         matSuffix
-        (click)="isHidden = !isHidden"
+        (click)="isPasswordHidden = !isPasswordHidden"
         [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="isHidden">
-        <mat-icon>{{isHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+        [attr.aria-pressed]="isPasswordHidden">
+        <mat-icon>{{isPasswordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Підтвердіть пароль</mat-label>
-      <input matInput formControlName="submitPassword" [type]="isHidden ? 'password' : 'text'">
+      <input matInput formControlName="repeatPassword" [type]="isRepeatPasswordHidden ? 'password' : 'text'">
       <button
         mat-icon-button
         matSuffix
-        (click)="isHidden = !isHidden"
+        (click)="isRepeatPasswordHidden = !isRepeatPasswordHidden"
         [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="isHidden">
-        <mat-icon>{{isHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+        [attr.aria-pressed]="isRepeatPasswordHidden">
+        <mat-icon>{{isRepeatPasswordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
+
+    <div *ngIf="registrationFormGroup.hasError('repeat')">Пароль не співпадає</div>
   </form>
 
   <div fxLayout="row" fxLayoutAlign="end">
-    <button mat-raised-button (click)="onSubmit()">Зареєструватися</button>
+    <button mat-raised-button type="submit" (click)="onSubmit()">Зареєструватися</button>
   </div>
 
 </div>

@@ -13,6 +13,10 @@ export const environment = {
             apiKey: 'AIzaSyAGgVfeL4OcxlCeoXZHgTBxM2xdRkQbFb4',
             authDomain: 'courseapp-c7a46.firebaseapp.com',
             messagingSenderId: '280416194259',
+        },
+        actionCodeSetting: {
+            url: 'http://localhost:5200',
+            handleCodeInApp: true
         }
     }
 };
