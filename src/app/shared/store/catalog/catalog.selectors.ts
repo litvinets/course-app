@@ -4,15 +4,15 @@ import { CatalogState } from "./catalog.reducer";
 export const getCatalogState = createFeatureSelector<CatalogState>("catalog");
 export const getCatalog = createSelector(
   getCatalogState,
-  (state) => state.entities
+  (state: CatalogState) => state.entities
 );
 
 export const getLoading = createSelector(
   getCatalogState,
-  (state) => state.isLoading
+  (state: CatalogState) => state.isLoading
 );
 
 export const getIsReady = createSelector(
   getCatalogState,
-  (state) => state.entities && !state.isLoading
+  (state: CatalogState) => state.entities && !state.isLoading
 );

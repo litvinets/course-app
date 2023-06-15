@@ -4,7 +4,6 @@ import { Constants } from '../constants/constants';
  * Utility class that providers methods for shared data manipulations
  */
 export class Util {
-
   /*Detects device and opens map*/
   public static mapLink(): void {
     if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
@@ -16,3 +15,4 @@ export class Util {
     }
   }
 }
+

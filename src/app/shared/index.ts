@@ -1,3 +1,3 @@
 export * from './utils/utils';
 export * from './constants/constants'
-export * from './models/catalog-item';
+export * from 'app/shared/models/catalog-item.model';
