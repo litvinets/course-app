@@ -6,12 +6,14 @@ import {
   Validators,
 } from "@angular/forms";
 import {
+  EMAIL_REGEX,
   NUMBERS_REGEX,
   PASSWORD_REGEX,
 } from "@app/shared/constants/regex-constants";
-import { update } from "@angular/fire/database";
-import { ValidationConstants } from "@app/shared";
+import { ValidationConstants, ValidationPatterns } from "@app/shared";
 import { markFormGroupTouched } from "@app/shared/utils/forms";
+import * as fromUser from "../../../store/user";
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: "app-registration-form",
@@ -19,29 +21,36 @@ import { markFormGroupTouched } from "@app/shared/utils/forms";
   styleUrls: ["./registration-form.component.scss"],
 })
 export class RegistrationFormComponent implements OnInit {
+  readonly ValidationPatterns = ValidationPatterns;
   registrationFormGroup: FormGroup;
 
   isPasswordHidden = true;
   isRepeatPasswordHidden = true;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store ) {
     this.registrationFormGroup = this.fb.group(
       {
         fullName: new FormControl("", {
           updateOn: "blur",
-          validators: [Validators.required],
+          validators: [
+            Validators.required,
+            Validators.maxLength(ValidationConstants.TITLE_MAX_LENGTH),
+          ],
         }),
         company: new FormControl("", {
           updateOn: "blur",
-          validators: [Validators.required],
+          validators: [
+            Validators.required,
+            Validators.maxLength(ValidationConstants.TITLE_MAX_LENGTH),
+          ],
         }),
         phone: new FormControl("", {
           updateOn: "blur",
           validators: [
             Validators.required,
             Validators.pattern(NUMBERS_REGEX),
-            Validators.max(ValidationConstants.PHONE_LENGTH),
-            Validators.min(ValidationConstants.PHONE_LENGTH),
+            Validators.maxLength(ValidationConstants.PHONE_LENGTH),
+            Validators.minLength(ValidationConstants.PHONE_LENGTH),
           ],
         }),
         email: new FormControl("", {
@@ -49,7 +58,8 @@ export class RegistrationFormComponent implements OnInit {
           validators: [
             Validators.required,
             Validators.email,
-            Validators.max(ValidationConstants.EMAIL_MAX_LENGTH),
+            Validators.pattern(EMAIL_REGEX),
+            Validators.maxLength(ValidationConstants.EMAIL_MAX_LENGTH),
           ],
         }),
         password: new FormControl("", {
@@ -57,7 +67,7 @@ export class RegistrationFormComponent implements OnInit {
           validators: [
             Validators.required,
             Validators.pattern(PASSWORD_REGEX),
-            Validators.min(ValidationConstants.PASSWORD_MIN_LENGTH),
+            Validators.minLength(ValidationConstants.PASSWORD_MIN_LENGTH),
           ],
         }),
         repeatPassword: new FormControl("", {
@@ -65,7 +75,7 @@ export class RegistrationFormComponent implements OnInit {
           validators: [
             Validators.required,
             Validators.pattern(PASSWORD_REGEX),
-            Validators.min(ValidationConstants.PASSWORD_MIN_LENGTH),
+            Validators.minLength(ValidationConstants.PASSWORD_MIN_LENGTH),
           ],
         }),
       },
@@ -77,6 +87,12 @@ export class RegistrationFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registrationFormGroup.valid) {
+      const value = this.registrationFormGroup.value;
+      const credentials: fromUser.EmailPasswordCredentials = {
+        email: value.email,
+        password: value.password,
+      };
+      this.store.dispatch(new fromUser.SignUpEmail(credentials))
     } else {
       markFormGroupTouched(this.registrationFormGroup);
     }
@@ -89,7 +105,7 @@ export class RegistrationFormComponent implements OnInit {
     const repeatPassword = group.get("repeatPassword");
 
     return !!repeatPassword.value && repeatPassword.value !== password.value
-      ? { repeat: true }
+      ? { repeatPassword: true }
       : null;
   }
 }

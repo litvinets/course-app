@@ -14,26 +14,35 @@
       <mat-label>Ваше ім'я</mat-label>
       <input matInput type="text" formControlName="fullName">
     </mat-form-field>
+    <app-validation [control]="registrationFormGroup.controls.fullName"></app-validation>
 
     <mat-form-field>
       <mat-label>Компанія</mat-label>
       <input matInput type="text" formControlName="company">
     </mat-form-field>
+    <app-validation [control]="registrationFormGroup.controls.company"></app-validation>
 
     <mat-form-field>
+      <span matPrefix>+38 &nbsp;</span>
       <mat-label>Номер телефону</mat-label>
-      <span matPrefix>+380 &nbsp;</span>
       <input type="tel" matInput formControlName="phone" placeholder="555-555-1234">
     </mat-form-field>
+
+    <app-validation [control]="registrationFormGroup.controls.phone"></app-validation>
 
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input type="email" matInput formControlName="email" placeholder="example@google.com">
     </mat-form-field>
+    <app-validation [control]="registrationFormGroup.controls.email"
+                    [patternError]="ValidationPatterns.EMAIL_PATTERN"></app-validation>
 
     <mat-form-field>
       <mat-label>Введіть пароль</mat-label>
-      <input matInput formControlName="password" [type]="isPasswordHidden ? 'password' : 'text'">
+      <input
+        matInput
+        formControlName="password"
+        [type]="isPasswordHidden ? 'password' : 'text'">
       <button
         mat-icon-button
         matSuffix
@@ -43,6 +52,9 @@
         <mat-icon>{{isPasswordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
+    <app-validation [control]="registrationFormGroup.controls.password"
+                    [patternError]="ValidationPatterns.PASSWORD_PATTERN"></app-validation>
+
     <mat-form-field>
       <mat-label>Підтвердіть пароль</mat-label>
       <input matInput formControlName="repeatPassword" [type]="isRepeatPasswordHidden ? 'password' : 'text'">
@@ -55,14 +67,12 @@
         <mat-icon>{{isRepeatPasswordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
-
-    <div *ngIf="registrationFormGroup.hasError('repeat')">Пароль не співпадає</div>
+    <app-validation [control]="registrationFormGroup.controls.repeatPassword"></app-validation>
   </form>
 
   <div fxLayout="row" fxLayoutAlign="end">
     <button mat-raised-button type="submit" (click)="onSubmit()">Зареєструватися</button>
   </div>
-
 </div>
 
 
