@@ -9,6 +9,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { RegistrationFormComponent } from "@app/shared/components/authorization/registration-form/registration-form.component";
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   declarations: [RegistrationFormComponent],
@@ -21,6 +22,7 @@ import { RegistrationFormComponent } from "@app/shared/components/authorization/
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
   exports: [RegistrationFormComponent],
 })

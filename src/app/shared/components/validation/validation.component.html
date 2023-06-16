@@ -1,0 +1,19 @@
+<div *ngIf="hasError()" class="error">
+  <ng-container *ngIf="control && errorKey" [ngSwitch]="errorKey">
+    <span *ngSwitchCase="'min'">Значення моля має бути мінімум {{control.errors[errorKey].min}}</span>
+    <span *ngSwitchCase="'max'">Значення моля має бути максимум {{control.errors[errorKey].max}}</span>
+    <span *ngSwitchCase="'required'">Це поле є обов'язковим</span>
+    <span *ngSwitchCase="'requiredTrue'">Це поле є обов'язковим</span>
+    <span *ngSwitchCase="'minlength'">Це поле має містити мінімум {{control.errors[errorKey].requiredLength}}
+      символ(ів)</span>
+    <span *ngSwitchCase="'maxlength'">Це поле має містити максимум {{control.errors[errorKey].requiredLength}}
+      символ(ів)</span>
+    <span *ngSwitchCase="'pattern'">
+      <span *ngIf="patternError">{{patternError}}</span>
+      <span *ngIf="!patternError">Шаблон не збігається</span>
+    </span>
+    <span *ngSwitchCase="'repeatPassword'">Пароль не співпадає</span>
+    <span *ngSwitchCase="'email'">Електронна пошта має співпадати із шаблоном "example@gmail.com"</span>
+
+  </ng-container>
+</div>

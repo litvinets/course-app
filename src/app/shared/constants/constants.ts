@@ -11,6 +11,13 @@ export class Constants {
 
 export class ValidationConstants {
   static readonly EMAIL_MAX_LENGTH = 128;
-  static readonly PHONE_LENGTH = 128;
-  static readonly PASSWORD_MIN_LENGTH = 6;
+  static readonly PHONE_LENGTH = 10;
+  static readonly PASSWORD_MIN_LENGTH = 8;
+  static readonly TITLE_MAX_LENGTH = 60;
+}
+
+export class ValidationPatterns {
+  static readonly EMAIL_PATTERN = 'Шаблон електронної пошти не збігається. Електронна пошта має містити символ "@", латинські букви до і після символу"@" та точку. Максимальна довжина електронної пошти 128';
+  static readonly PASSWORD_PATTERN = 'Пароль повинен бути довжиною не менше 8 символів та містити букви в обох регістрах, цифри, спеціальні знаки';
+
 }
