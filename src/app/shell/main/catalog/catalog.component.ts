@@ -21,7 +21,6 @@ export class CatalogComponent implements OnInit {
   }
 
   private getCatalogData(): void {
-    this.store.dispatch(new fromCatalog.Read());
     this.catalog$ = this.store.pipe(select(fromCatalog.getCatalog));
   }
 }

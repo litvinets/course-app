@@ -19,5 +19,5 @@ export class ValidationConstants {
 export class ValidationPatterns {
   static readonly EMAIL_PATTERN = 'Шаблон електронної пошти не збігається. Електронна пошта має містити символ "@", латинські букви до і після символу"@" та точку. Максимальна довжина електронної пошти 128';
   static readonly PASSWORD_PATTERN = 'Пароль повинен бути довжиною не менше 8 символів та містити букви в обох регістрах, цифри, спеціальні знаки';
-
+  static readonly REPEAT_PASSWORD = 'Пароль не співпадає'
 }

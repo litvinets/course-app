@@ -46,7 +46,8 @@ const StoreDevtools = !environment.production
     StoreDevtoolsModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    StoreDevtools
   ],
   providers: [],
   bootstrap: [AppComponent],
