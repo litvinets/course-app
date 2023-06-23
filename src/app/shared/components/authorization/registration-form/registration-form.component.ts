@@ -13,7 +13,7 @@ import {
 import { ValidationConstants, ValidationPatterns } from "@app/shared";
 import { markFormGroupTouched } from "@app/shared/utils/forms";
 import * as fromUser from "../../../store/user";
-import { Store } from '@ngrx/store';
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: "app-registration-form",
@@ -27,60 +27,89 @@ export class RegistrationFormComponent implements OnInit {
   isPasswordHidden = true;
   isRepeatPasswordHidden = true;
 
-  constructor(private fb: FormBuilder, private store: Store ) {
+  constructor(private fb: FormBuilder, private store: Store) {
     this.registrationFormGroup = this.fb.group(
       {
-        fullName: new FormControl("", {
+        email: new FormControl(null, {
           updateOn: "blur",
           validators: [
             Validators.required,
-            Validators.maxLength(ValidationConstants.TITLE_MAX_LENGTH),
-          ],
-        }),
-        company: new FormControl("", {
-          updateOn: "blur",
-          validators: [
-            Validators.required,
-            Validators.maxLength(ValidationConstants.TITLE_MAX_LENGTH),
-          ],
-        }),
-        phone: new FormControl("", {
-          updateOn: "blur",
-          validators: [
-            Validators.required,
-            Validators.pattern(NUMBERS_REGEX),
-            Validators.maxLength(ValidationConstants.PHONE_LENGTH),
-            Validators.minLength(ValidationConstants.PHONE_LENGTH),
-          ],
-        }),
-        email: new FormControl("", {
-          updateOn: "blur",
-          validators: [
-            Validators.required,
-            Validators.email,
+            Validators.maxLength(128),
             Validators.pattern(EMAIL_REGEX),
-            Validators.maxLength(ValidationConstants.EMAIL_MAX_LENGTH),
           ],
         }),
-        password: new FormControl("", {
+        password: new FormControl(null, {
           updateOn: "blur",
           validators: [
             Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(30),
             Validators.pattern(PASSWORD_REGEX),
-            Validators.minLength(ValidationConstants.PASSWORD_MIN_LENGTH),
           ],
         }),
-        repeatPassword: new FormControl("", {
+        repeatPassword: new FormControl(null, {
           updateOn: "blur",
           validators: [
             Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(30),
             Validators.pattern(PASSWORD_REGEX),
-            Validators.minLength(ValidationConstants.PASSWORD_MIN_LENGTH),
           ],
         }),
       },
       { validator: this.repeatPasswordValidator }
     );
+    // this.registrationFormGroup = this.fb.group(
+    //   {
+    //     // fullName: new FormControl("", {
+    //     //   updateOn: "blur",
+    //     //   validators: [
+    //     //     Validators.required,
+    //     //     Validators.maxLength(ValidationConstants.TITLE_MAX_LENGTH),
+    //     //   ],
+    //     // }),
+    //     // company: new FormControl("", {
+    //     //   updateOn: "blur",
+    //     //   validators: [
+    //     //     Validators.required,
+    //     //     Validators.maxLength(ValidationConstants.TITLE_MAX_LENGTH),
+    //     //   ],
+    //     // }),
+    //     // phone: new FormControl("", {
+    //     //   updateOn: "blur",
+    //     //   validators: [
+    //     //     Validators.required,
+    //     //     Validators.pattern(NUMBERS_REGEX),
+    //     //     Validators.maxLength(ValidationConstants.PHONE_LENGTH),
+    //     //     Validators.minLength(ValidationConstants.PHONE_LENGTH),
+    //     //   ],
+    //     // }),
+    //     email: new FormControl("", {
+    //       updateOn: "blur",
+    //       validators: [
+    //         Validators.required,
+    //         Validators.email,
+    //         Validators.pattern(EMAIL_REGEX),
+    //         Validators.maxLength(ValidationConstants.EMAIL_MAX_LENGTH),
+    //       ],
+    //     }),
+    //     password: new FormControl("", {
+    //       validators: [
+    //         Validators.required,
+    //         Validators.pattern(PASSWORD_REGEX),
+    //         Validators.minLength(ValidationConstants.PASSWORD_MIN_LENGTH),
+    //       ],
+    //     }),
+    //     repeatPassword: new FormControl("", {
+    //       validators: [
+    //         Validators.required,
+    //         Validators.pattern(PASSWORD_REGEX),
+    //         Validators.minLength(ValidationConstants.PASSWORD_MIN_LENGTH),
+    //       ],
+    //     }),
+    //   },
+    //   { validator: this.repeatPasswordValidator }
+    // );
   }
 
   ngOnInit(): void {}
@@ -92,7 +121,7 @@ export class RegistrationFormComponent implements OnInit {
         email: value.email,
         password: value.password,
       };
-      this.store.dispatch(new fromUser.SignUpEmail(credentials))
+      this.store.dispatch(new fromUser.SignUpEmail(credentials));
     } else {
       markFormGroupTouched(this.registrationFormGroup);
     }
@@ -104,7 +133,7 @@ export class RegistrationFormComponent implements OnInit {
     const password = group.get("password");
     const repeatPassword = group.get("repeatPassword");
 
-    return !!repeatPassword.value && repeatPassword.value !== password.value
+    return !!repeatPassword?.value && repeatPassword.value !== password.value
       ? { repeatPassword: true }
       : null;
   }

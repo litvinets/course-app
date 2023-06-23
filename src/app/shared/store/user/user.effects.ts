@@ -32,6 +32,30 @@ export class UserEffects {
     private router: Router
   ) {}
 
+  init$: Observable<Action> = createEffect(() => {
+    return this.actions.pipe(
+      ofType(fromActions.Types.INIT),
+      switchMap(() => this.afAuth.authState.pipe(take(1))),
+      switchMap((authState: firebase.User) => {
+        if (authState) {
+          return this.afs
+            .doc<User>(`users/${authState.uid}`)
+            .valueChanges()
+            .pipe(
+              take(1),
+              map(
+                (user: User) =>
+                  new fromActions.InitAuthorized(authState.uid, user || null)
+              ),
+              catchError((err) => of(new fromActions.InitError(err.message)))
+            );
+        } else {
+          return of(new fromActions.InitUnauthorized());
+        }
+      })
+    );
+  });
+
   signInEmail$: Observable<Action> = createEffect(() => {
     return this.actions.pipe(
       ofType(fromActions.Types.SIGN_IN_EMAIL),
@@ -49,6 +73,7 @@ export class UserEffects {
               .valueChanges()
               .pipe(
                 take(1),
+                tap(() => this.router.navigate(["/"])),
                 map(
                   (user: User) =>
                     new fromActions.SignInEmailSuccess(
@@ -83,6 +108,7 @@ export class UserEffects {
               auth.currentUser,
               environment.firebase.actionCodeSetting
             );
+            this.router.navigate(["/email-confirmation"]);
           }),
           map(
             (signUpState: UserCredential) =>

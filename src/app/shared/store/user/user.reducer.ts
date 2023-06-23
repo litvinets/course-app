@@ -17,6 +17,23 @@ const initialState: UserState = {
 
 export function reducer(state = initialState, action: fromActions.All): UserState {
   switch (action.type) {
+    //Init
+    case fromActions.Types.INIT: {
+      return {...state, isLoading: true};
+    }
+
+    case fromActions.Types.INIT_AUTHORIZED: {
+      return {...state, entity: action.user, uid: action.uid, isLoading: false, error: null};
+    }
+
+    case fromActions.Types.INIT_UNAUTHORIZED: {
+      return {...initialState};
+    }
+
+    case fromActions.Types.INIT_ERROR: {
+      return {...state, error: action.error, isLoading: false};
+    }
+
     //SignIn
     case fromActions.Types.SIGN_IN_EMAIL: {
       return {...state, isLoading: true};

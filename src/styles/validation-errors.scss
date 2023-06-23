@@ -1,0 +1,14 @@
+@import "colors";
+
+.error {
+  font-size: 12px;
+  color: $error;
+  padding: 4px 0;
+  min-height: 22px;
+  position: relative;
+  bottom: 15px;
+
+  span {
+    display: block;
+  }
+}

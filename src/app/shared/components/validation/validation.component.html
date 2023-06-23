@@ -12,8 +12,6 @@
       <span *ngIf="patternError">{{patternError}}</span>
       <span *ngIf="!patternError">Шаблон не збігається</span>
     </span>
-    <span *ngSwitchCase="'repeatPassword'">Пароль не співпадає</span>
     <span *ngSwitchCase="'email'">Електронна пошта має співпадати із шаблоном "example@gmail.com"</span>
-
   </ng-container>
 </div>

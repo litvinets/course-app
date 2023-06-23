@@ -27,7 +27,7 @@
 <mat-dialog-actions fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem">
   <div fxLayout="row" fxLayoutAlign="center space-between" fxLayoutGap="1rem">
     <button mat-button mat-dialog-close (click)="onClose()">Повернутися</button>
-    <button mat-button [mat-dialog-close]="loginFormGroup" cdkFocusInitial>Увійти</button>
+    <button mat-button cdkFocusInitial (click)="onSubmit()" >Увійти</button>
   </div>
   <span fxLayout="row" class="app-a-auth">Ще не зареєстрвоані?
     <a [routerLink]="'/registration'" (click)="onClose()" class="app-a">Зареєструватися</a>

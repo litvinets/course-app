@@ -15,7 +15,15 @@
       {{ constants.ADDRESS }}
     </a>
 
-    <button mat-raised-button (click)="onLogin()">Увійти/Зареєструватися</button>
+<!--    Unauthorized template-->
+    <ng-container *ngIf="!isAuthorized; else AuthTmpl">
+      <button mat-raised-button (click)="onSignIn()">Увійти/Зареєструватися</button>
+    </ng-container>
+
 
   </div>
 </div>
+
+<ng-template #AuthTmpl>
+  <button mat-raised-button (click)="signOut.emit()">Вийти</button>
+</ng-template>

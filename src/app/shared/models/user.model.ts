@@ -1,7 +1,7 @@
 import { Role } from '@app/shared/enums';
 
 export interface User {
-  id?: string;
+  uid: string;
   fullName: string;
   company: string;
   phone: string;

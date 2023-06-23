@@ -1,3 +1,5 @@
+@import "styles/validation-errors";
+
 .form {
   max-width: 50%;
   padding: 2rem;
@@ -6,8 +8,6 @@
   .form {
     max-width: 100%;
     padding: 0;
-
-    //background-color: red;
   }
 }
 
@@ -15,7 +15,5 @@
   .form {
     max-width: 100%;
     padding: 0;
-
-    //background-color: red;
   }
 }
