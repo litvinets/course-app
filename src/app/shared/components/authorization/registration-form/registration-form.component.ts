@@ -10,7 +10,7 @@ import {
   NUMBERS_REGEX,
   PASSWORD_REGEX,
 } from "@app/shared/constants/regex-constants";
-import { ValidationConstants, ValidationPatterns } from "@app/shared";
+import { ValidationPatterns } from "@app/shared";
 import { markFormGroupTouched } from "@app/shared/utils/forms";
 import * as fromUser from "../../../store/user";
 import { Store } from "@ngrx/store";

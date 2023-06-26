@@ -1,4 +1,4 @@
-<mat-dialog-content fxLayout="column" fxLayoutAlign="center center">
+<mat-dialog-content fxLayout="column" fxLayoutAlign="center center" class="modal-wrapper">
 
   <h1 mat-dialog-title>Увійти</h1>
 
@@ -7,7 +7,8 @@
       <mat-label>Електронна пошта</mat-label>
       <input type="email" matInput formControlName="email" placeholder="example@google.com">
     </mat-form-field>
-
+    <app-validation [control]="loginFormGroup.controls.email"
+                    [patternError]="ValidationPatterns.EMAIL_PATTERN"></app-validation>
     <mat-form-field>
       <mat-label>Пароль</mat-label>
       <input matInput formControlName="password" [type]="isHidden ? 'password' : 'text'">
@@ -23,6 +24,8 @@
     <a [href]="" class="app-a" fxLayout="row" fxLayoutAlign="end">Забули пароль?</a>
   </form>
 </mat-dialog-content>
+<app-validation [control]="loginFormGroup.controls.password"
+                [patternError]="ValidationPatterns.PASSWORD_PATTERN"></app-validation>
 
 <mat-dialog-actions fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem">
   <div fxLayout="row" fxLayoutAlign="center space-between" fxLayoutGap="1rem">
