@@ -18,6 +18,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { effects, reducers } from "@app/shared/store";
 import { SharedModule } from '@app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NotificationsModule} from "@app/shared/services";
 
 const StoreDevtools = !environment.production
   ? StoreDevtoolsModule.instrument({ maxAge: 50 })
@@ -47,7 +48,8 @@ const StoreDevtools = !environment.production
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    StoreDevtools
+    StoreDevtools,
+    NotificationsModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

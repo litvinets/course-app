@@ -11,7 +11,9 @@ import {
   PASSWORD_REGEX,
 } from "@app/shared/constants/regex-constants";
 import { Store } from "@ngrx/store";
-import {markFormGroupTouched} from "@app/shared/utils/forms";
+import { markFormGroupTouched } from "@app/shared/utils/forms";
+import { ValidationPatterns } from "@app/shared";
+
 import * as fromUser from "@app/shared/store/user";
 
 @Component({
@@ -20,6 +22,8 @@ import * as fromUser from "@app/shared/store/user";
   styleUrls: ["./login-modal.component.scss"],
 })
 export class LoginModalComponent {
+  readonly ValidationPatterns = ValidationPatterns;
+
   loginFormGroup: FormGroup;
   isHidden = true;
 
@@ -54,7 +58,7 @@ export class LoginModalComponent {
   }
 
   onSubmit(): void {
-    if(this.loginFormGroup.valid) {
+    if (this.loginFormGroup.valid) {
       const value = this.loginFormGroup.value;
       const credentials: fromUser.EmailPasswordCredentials = {
         email: value.email,
@@ -66,5 +70,4 @@ export class LoginModalComponent {
       markFormGroupTouched(this.loginFormGroup);
     }
   }
-
 }

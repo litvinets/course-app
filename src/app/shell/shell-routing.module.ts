@@ -2,8 +2,9 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { MainComponent } from "@app/shell/main/main.component";
 import { RegistrationFormComponent } from "@app/shared/components/authorization/registration-form/registration-form.component";
-import { EmailConfirmationComponent } from "@app/shared/components/authorization/email-confirmation/email-confirmation.component";
-import {NotFoundPageComponent} from "@app/shell/not-found-page/not-found-page.component";
+import { EmailConfirmationComponent } from "@app/shared/components/authorization/login-modal/email-confirmation/email-confirmation.component";
+import { NotFoundPageComponent } from "@app/shell/not-found-page/not-found-page.component";
+import { CabinetComponent } from "@app/shell/cabinet/cabinet.component";
 
 const routes: Routes = [
   {
@@ -27,7 +28,13 @@ const routes: Routes = [
         "../shared/components/authorization/registration-form/registration-form.module"
       ).then((m) => m.RegistrationFormModule),
   },
-  { path: '**', component: NotFoundPageComponent }
+  {
+    path: "cabinet",
+    component: CabinetComponent,
+    loadChildren: () =>
+      import("./cabinet/cabinet.module").then((m) => m.CabinetModule),
+  },
+  { path: "**", component: NotFoundPageComponent },
 ];
 
 @NgModule({

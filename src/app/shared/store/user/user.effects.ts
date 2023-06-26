@@ -20,6 +20,7 @@ import firebase from "firebase/compat";
 import UserCredential = firebase.auth.UserCredential;
 import { environment } from "../../../../environments/environment";
 import { User } from "./user.models";
+import { NotificationsService } from "@app/shared/services";
 
 type Action = fromActions.All;
 
@@ -29,7 +30,8 @@ export class UserEffects {
     private actions: Actions,
     private afs: AngularFirestore,
     private afAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private notificationsService: NotificationsService
   ) {}
 
   init$: Observable<Action> = createEffect(() => {
@@ -38,17 +40,21 @@ export class UserEffects {
       switchMap(() => this.afAuth.authState.pipe(take(1))),
       switchMap((authState: firebase.User) => {
         if (authState) {
+          // const user = authState.multiFactor["user"];
+          // return of(new fromActions.InitAuthorized(user.uid, user || null));
           return this.afs
             .doc<User>(`users/${authState.uid}`)
             .valueChanges()
             .pipe(
               take(1),
-              map(
-                (user: User) =>
-                  new fromActions.InitAuthorized(authState.uid, user || null)
-              ),
+              map((data) => {
+                // const user = authState.multiFactor["user"];
+                // return new fromActions.InitAuthorized(user.uid, user || null);
+               return new fromActions.InitAuthorized(authState.uid, data || null);
+              }),
               catchError((err) => of(new fromActions.InitError(err.message)))
             );
+
         } else {
           return of(new fromActions.InitUnauthorized());
         }
@@ -83,9 +89,10 @@ export class UserEffects {
                 )
               )
           ),
-          catchError((error) =>
-            of(new fromActions.SignInEmailFail(error.message))
-          )
+          catchError((error) => {
+            this.notificationsService.onError(error);
+            return of(new fromActions.SignInEmailFail(error.message));
+          })
         )
       )
     );
@@ -108,15 +115,18 @@ export class UserEffects {
               auth.currentUser,
               environment.firebase.actionCodeSetting
             );
-            this.router.navigate(["/email-confirmation"]);
           }),
-          map(
-            (signUpState: UserCredential) =>
-              new fromActions.SignUpEmailSuccess(signUpState.user.uid)
-          ),
-          catchError((error) =>
-            of(new fromActions.SignUpEmailFail(error.message))
-          )
+          map((signUpState: UserCredential) => {
+            this.notificationsService.onSuccess(
+              "Реєстрація пройшла успішно. Будь-ласка підтвердіть свою електронун пошту"
+            );
+            this.router.navigate(["/email-confirmation"]);
+            return new fromActions.SignUpEmailSuccess(signUpState.user.uid);
+          }),
+          catchError((error) => {
+            this.notificationsService.onError(error);
+            return of(new fromActions.SignUpEmailFail(error.message));
+          })
         )
       )
     );
@@ -128,7 +138,10 @@ export class UserEffects {
       switchMap(() =>
         from(this.afAuth.signOut()).pipe(
           map(() => new fromActions.SignOutSuccess()),
-          catchError((error) => of(new fromActions.SignOutFail(error.message)))
+          catchError((error) => {
+            this.notificationsService.onError(error);
+            return of(new fromActions.SignOutFail(error.message));
+          })
         )
       )
     );

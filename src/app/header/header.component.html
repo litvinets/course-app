@@ -15,15 +15,25 @@
       {{ constants.ADDRESS }}
     </a>
 
-<!--    Unauthorized template-->
-    <ng-container *ngIf="!isAuthorized; else AuthTmpl">
-      <button mat-raised-button (click)="onSignIn()">Увійти/Зареєструватися</button>
+    <!--    Unauthorized template-->
+    <ng-container *ngIf="!(isUserLoading$ | async)">
+      <ng-container *ngIf="!isAuthorized; else AuthTmpl">
+        <button mat-raised-button (click)="onSignIn()">Увійти/Зареєструватися</button>
+      </ng-container>
     </ng-container>
-
 
   </div>
 </div>
 
 <ng-template #AuthTmpl>
-  <button mat-raised-button (click)="signOut.emit()">Вийти</button>
+  <button mat-button [matMenuTriggerFor]="menu">
+    {{(user$ | async)?.email}}
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/settings">Налаштування</button>
+    <button mat-menu-item routerLink="/cabinet">Замовлення</button>
+    <button mat-menu-item (click)="signOut.emit()">Вийти</button>
+  </mat-menu>
+
 </ng-template>

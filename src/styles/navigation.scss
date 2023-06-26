@@ -1,0 +1,12 @@
+.nav {
+  border-bottom: none;
+  min-width: auto !important;
+  color: black !important;
+  padding: 2rem;
+  padding-bottom: 0;
+
+  .mat-tab-links {
+    display: flex;
+    justify-content: space-around !important;
+  }
+}
