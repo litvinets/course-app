@@ -9,9 +9,9 @@ import {
 import { Constants, Util } from "../shared/index";
 import { MatDialog } from "@angular/material/dialog";
 import { LoginModalComponent } from "@app/shared/components/authorization/login-modal/login-modal.component";
-import { Actions, Store } from '@ngxs/store';
 import * as fromUser from "../shared/store/user";
-import {Observable} from "rxjs";
+import { Observable } from "rxjs";
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: "app-header",
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
   isUserLoading$: Observable<boolean>;
   user$: Observable<fromUser.User>;
 
-  constructor(private dialog: MatDialog, private store: Store,     private actions$: Actions) {}
+  constructor(private dialog: MatDialog, private store: Store) {}
 
   ngOnInit(): void {
     this.isUserLoading$ = this.store.select(fromUser.getLoading);
