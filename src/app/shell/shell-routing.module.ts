@@ -5,6 +5,8 @@ import { RegistrationFormComponent } from "@app/shared/components/authorization/
 import { EmailConfirmationComponent } from "@app/shared/components/authorization/login-modal/email-confirmation/email-confirmation.component";
 import { NotFoundPageComponent } from "@app/shell/not-found-page/not-found-page.component";
 import { CabinetComponent } from "@app/shell/cabinet/cabinet.component";
+import {SettingsComponent} from "@app/shell/settings/settings.component";
+import {AddOrderComponent} from "@app/shell/cabinet/orders/add-order/add-order.component";
 
 const routes: Routes = [
   {
@@ -33,6 +35,20 @@ const routes: Routes = [
     component: CabinetComponent,
     loadChildren: () =>
       import("./cabinet/cabinet.module").then((m) => m.CabinetModule),
+  },
+  {
+    path: "settings",
+    component: SettingsComponent,
+    loadChildren: () =>
+      import(
+        "./settings/setting.module"
+        ).then((m) => m.SettingModule),
+  },
+  {
+    path: "add-order",
+    component: AddOrderComponent,
+    loadChildren: () =>
+      import("./cabinet/orders/add-order/add-order.module").then((m) => m.AddOrderModule),
   },
   { path: "**", component: NotFoundPageComponent },
 ];

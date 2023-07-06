@@ -13,6 +13,7 @@ import {
   switchMap,
   take,
   tap,
+  withLatestFrom,
 } from "rxjs";
 import { EmailPasswordCredentials } from "@app/shared/store/user/user.models";
 import { getAuth, sendEmailVerification } from "firebase/auth";
@@ -21,6 +22,8 @@ import UserCredential = firebase.auth.UserCredential;
 import { environment } from "../../../../environments/environment";
 import { User } from "./user.models";
 import { NotificationsService } from "@app/shared/services";
+import {UserProfile, UserProfileRequest} from "@app/shared/models";
+import {Role} from "@app/shared/enums";
 
 type Action = fromActions.All;
 
@@ -50,11 +53,13 @@ export class UserEffects {
               map((data) => {
                 // const user = authState.multiFactor["user"];
                 // return new fromActions.InitAuthorized(user.uid, user || null);
-               return new fromActions.InitAuthorized(authState.uid, data || null);
+                return new fromActions.InitAuthorized(
+                  authState.uid,
+                  data || null
+                );
               }),
               catchError((err) => of(new fromActions.InitError(err.message)))
             );
-
         } else {
           return of(new fromActions.InitUnauthorized());
         }
@@ -142,6 +147,37 @@ export class UserEffects {
             this.notificationsService.onError(error);
             return of(new fromActions.SignOutFail(error.message));
           })
+        )
+      )
+    );
+  });
+
+  createUser$: Observable<Action> = createEffect(() => {
+    return this.actions.pipe(
+      ofType(fromActions.Types.CREATE_USER),
+      map((action: fromActions.CreateUser) => action.user),
+      withLatestFrom(this.afAuth.authState.pipe(take(1))),
+      map(([user, state]: [UserProfileRequest, firebase.User]) => ({
+        ...user,
+        uid: state.uid,
+      })),
+      switchMap((user: UserProfile) =>
+        from(this.afs.collection("users").doc(user.uid).set(user)).pipe(
+          map(() => new fromActions.CreateUserSuccess(user)),
+          catchError((error: string) => of(new fromActions.CreateUserFail(error)))
+        )
+      )
+    );
+  });
+
+  updateUser$: Observable<Action> = createEffect(() => {
+    return this.actions.pipe(
+      ofType(fromActions.Types.UPDATE_USER),
+      map((action: fromActions.CreateUser) => action.user),
+      switchMap((user: UserProfile) =>
+        from(this.afs.collection("users").doc(user.uid).set(user)).pipe(
+          map(() => new fromActions.UpdateUserSuccess(user)),
+          catchError((error) => of(new fromActions.UpdateUserFail(error)))
         )
       )
     );

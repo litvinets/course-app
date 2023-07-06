@@ -59,57 +59,6 @@ export class RegistrationFormComponent implements OnInit {
       },
       { validator: this.repeatPasswordValidator }
     );
-    // this.registrationFormGroup = this.fb.group(
-    //   {
-    //     // fullName: new FormControl("", {
-    //     //   updateOn: "blur",
-    //     //   validators: [
-    //     //     Validators.required,
-    //     //     Validators.maxLength(ValidationConstants.TITLE_MAX_LENGTH),
-    //     //   ],
-    //     // }),
-    //     // company: new FormControl("", {
-    //     //   updateOn: "blur",
-    //     //   validators: [
-    //     //     Validators.required,
-    //     //     Validators.maxLength(ValidationConstants.TITLE_MAX_LENGTH),
-    //     //   ],
-    //     // }),
-    //     // phone: new FormControl("", {
-    //     //   updateOn: "blur",
-    //     //   validators: [
-    //     //     Validators.required,
-    //     //     Validators.pattern(NUMBERS_REGEX),
-    //     //     Validators.maxLength(ValidationConstants.PHONE_LENGTH),
-    //     //     Validators.minLength(ValidationConstants.PHONE_LENGTH),
-    //     //   ],
-    //     // }),
-    //     email: new FormControl("", {
-    //       updateOn: "blur",
-    //       validators: [
-    //         Validators.required,
-    //         Validators.email,
-    //         Validators.pattern(EMAIL_REGEX),
-    //         Validators.maxLength(ValidationConstants.EMAIL_MAX_LENGTH),
-    //       ],
-    //     }),
-    //     password: new FormControl("", {
-    //       validators: [
-    //         Validators.required,
-    //         Validators.pattern(PASSWORD_REGEX),
-    //         Validators.minLength(ValidationConstants.PASSWORD_MIN_LENGTH),
-    //       ],
-    //     }),
-    //     repeatPassword: new FormControl("", {
-    //       validators: [
-    //         Validators.required,
-    //         Validators.pattern(PASSWORD_REGEX),
-    //         Validators.minLength(ValidationConstants.PASSWORD_MIN_LENGTH),
-    //       ],
-    //     }),
-    //   },
-    //   { validator: this.repeatPasswordValidator }
-    // );
   }
 
   ngOnInit(): void {}

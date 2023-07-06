@@ -1,0 +1,6 @@
+@import 'src/styles/colors';
+
+.btn:hover:enabled {
+  opacity: 0.5;
+  color: $primary;
+}

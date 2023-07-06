@@ -1,0 +1,30 @@
+@import 'src/styles/colors';
+
+.dropzone {
+  border-style: dashed;
+  border-color: $primary;
+  padding: 1rem;
+
+  &-hovered {
+    opacity: 0.5;
+  }
+
+  &-label {
+    &:hover {
+      color: $primary-dark;
+      cursor: pointer;
+    }
+  }
+
+  .error {
+    color: $error;
+  }
+}
+.content {
+  height: 90%;
+}
+
+.button {
+  font-size: larger;
+  padding: 1rem;
+}
