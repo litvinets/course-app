@@ -27,7 +27,7 @@
 
 <ng-template #AuthTmpl>
   <button mat-button [matMenuTriggerFor]="menu">
-    {{(user$ | async)?.email}}
+    {{(user$ | async)?.fullName}}
     <mat-icon>account_circle</mat-icon>
   </button>
   <mat-menu #menu="matMenu">

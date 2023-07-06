@@ -1,0 +1,24 @@
+<div fxLayout="column" fxLayoutAlign="space-between space-between" fxLayoutGap="1rem">
+  <span> {{file.name}}</span>
+
+  <mat-progress-bar mode="determinate" value="(percentage$ | async) || 0" max="100"></mat-progress-bar>
+  <ng-container *ngIf="snapshot$ | async as snapshot">
+
+    <ng-container *ngIf="downloadUrl; then completeTmpl; else inProgressTmpl"></ng-container>
+    <ng-template #completeTmpl>
+      <button mat-button>
+        <a class="app-a" [href]="downloadUrl" target="_blank" rel="noopener"> Скачати </a>
+      </button>
+    </ng-template>
+    <ng-template #inProgressTmpl>
+      <div fxLayout="row" fxLayoutAlign="space-between space-between" fxLayoutGap="1rem">
+        <button class="btn" mat-raised-button (click)="task.pause()" [disabled]="!(snapshot.state === 'running')">Пауза</button>
+        <button class="btn" mat-raised-button (click)="task.cancel()" [disabled]="!(snapshot.state === 'running')">Відмінити</button>
+        <button class="btn" mat-raised-button (click)="task.resume()" [disabled]="!(snapshot.state === 'paused')">Продовжити</button>
+      </div>
+    </ng-template>
+
+    <span> {{snapshot.bytesTransferred | fileSize}} завершено із {{snapshot.totalBytes | fileSize}}</span>
+  </ng-container>
+</div>
+

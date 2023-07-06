@@ -1,0 +1,16 @@
+<div fxLayout="column" fxLayoutAlign="space-between space-between" fxLayoutGap="1rem" class="cropper">
+  <image-cropper
+    class="cropper-content"
+    [imageFile]="imageFile"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="1/1"
+    format="jpg"
+    (imageCropped)="imageCropped($event)"
+  ></image-cropper>
+
+
+  <button class="button" mat-raised-button (click)="onCrop()">
+    Зберегти
+  </button>
+</div>
+

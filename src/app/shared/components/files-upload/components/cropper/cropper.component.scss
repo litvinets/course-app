@@ -1,0 +1,16 @@
+.button {
+  font-size: larger;
+  padding: 1rem;
+}
+
+.cropper {
+
+  &-content {
+    height:260px;
+  }
+
+  &-actions {
+    display: flex;
+    justify-content: center;
+  }
+}

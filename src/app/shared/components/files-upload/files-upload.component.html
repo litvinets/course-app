@@ -1,0 +1,36 @@
+<mat-dialog-content class="content" fxLayout="column" fxLayoutAlign="space-between space-between">
+  <ng-container *ngIf="!files.length; else uploadedTmpl">
+    <h2 mat-dialog-title fxLayout="row" fxLayoutAlign="center">Додати файли</h2>
+    <div
+      *ngIf="!imageFile"
+      class="dropzone"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      appDropZone
+      (hovered)="isHovered = $event"
+      (dropped)="onDrop($event)"
+      [class.dropzone-hovered]="isHovered">
+      <h3>Перетягніть сюди файли</h3>
+      <label for="files" class="dropzone-label">обрати</label>
+      <input id="files" style="visibility:hidden;" type="file" [multiple]="data.multiple"
+             (change)="onDrop($event.target.files)">
+      <span *ngIf="isError" class="error">Оберіть лише один файл</span>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="imageFile">
+    <app-cropper [imageFile]="imageFile" (changed)="onCrop($event)"></app-cropper>
+  </ng-container>
+
+  <ng-template #uploadedTmpl>
+    <app-upload *ngFor="let file of files" [file]="file" (completed)="onUploadComplete($event)"></app-upload>
+  </ng-template>
+
+  <ng-container *ngIf="!imageFile">
+    <button *ngIf="!filesURLs.length" class="button" mat-raised-button mat-dialog-close (click)="onClose()">
+      Закрити
+    </button>
+    <button *ngIf="filesURLs.length" class="button" mat-raised-button mat-dialog-close (click)="onComplete()">
+      Завершити
+    </button>
+  </ng-container>
+</mat-dialog-content>

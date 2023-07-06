@@ -1,0 +1,61 @@
+<div class="form" fxLayout="column" fxLayoutAlign="space-between space-between">
+
+  <h1>Оформити замовлення</h1>
+
+  <form
+    autocomplete="off"
+    novalidate
+    fxLayout="column"
+    fxLayoutAlign="space-between space-between"
+    [formGroup]="orderFormGroup"
+  >
+
+    <mat-checkbox (change)="onApplyProfileData($event)">Використовувати дані профілю</mat-checkbox>
+
+    <mat-form-field>
+      <mat-label>Ваше ім'я</mat-label>
+      <input matInput type="text" formControlName="fullName">
+    </mat-form-field>
+    <app-validation [control]="orderFormGroup.controls.fullName"></app-validation>
+
+    <mat-form-field>
+      <mat-label>Компанія</mat-label>
+      <input matInput type="text" formControlName="company">
+    </mat-form-field>
+    <app-validation [control]="orderFormGroup.controls.company"></app-validation>
+
+    <mat-form-field>
+      <span matPrefix>+38 &nbsp;</span>
+      <mat-label>Номер телефону</mat-label>
+      <input type="tel" matInput formControlName="phone" placeholder="555-555-1234">
+    </mat-form-field>
+    <app-validation [control]="orderFormGroup.controls.phone"></app-validation>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="email" placeholder="example@google.com">
+    </mat-form-field>
+    <app-validation
+      [control]="orderFormGroup.controls.email"
+      [patternError]="ValidationPatterns.EMAIL_PATTERN"></app-validation>
+
+    <mat-form-field>
+      <mat-label>Коментар до замовлення</mat-label>
+      <textarea matInput formControlName="comment" placeholder="Залишити коментар"></textarea>
+    </mat-form-field>
+  </form>
+
+  <button appFilesUpload [multiple]="true" [crop]="false" (changed)="onAddFiles($event)">
+    Додати файли
+  </button>
+
+
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-raised-button type="submit"
+            [disabled]="orderFormGroup.invalid"
+            (click)="onAddNewOrder()">
+      Підтвердити замовлення
+    </button>
+  </div>
+
+</div>

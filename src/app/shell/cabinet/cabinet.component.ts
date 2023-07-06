@@ -12,4 +12,7 @@ export class CabinetComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onAddNewOrder(): void {
+
+  }
 }
