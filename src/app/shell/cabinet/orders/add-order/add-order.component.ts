@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as fromUser from '@app/shared/store/user';
+import * as fromOrders from '@app/shared/store/orders';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ValidationConstants, ValidationPatterns } from '@app/shared';
@@ -73,8 +74,9 @@ export class AddOrderComponent implements OnInit {
     }
   }
 
-  onAddNewOrder(): void {
 
+  onAddNewOrder(): void {
+    this.store.dispatch(new fromOrders.CreateOrder(this.orderFormGroup.value));
   }
 
   onAddFiles(data: string | string[]): void {

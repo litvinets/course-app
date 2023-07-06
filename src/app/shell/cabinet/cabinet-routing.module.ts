@@ -1,13 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {SettingsComponent} from "@app/shell/settings/settings.component";
-
 const routes: Routes = [
-
+  {
+    path: 'orders',
+    loadChildren: () =>
+      import(
+        './orders/orders.module'
+        ).then((m) => m.OrdersModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CabinetRoutingModule { }
+export class CabinetRoutingModule {
+}

@@ -1,1 +1,21 @@
-<p>active-orders works!</p>
+<mat-accordion>
+  <div class="order-item" *ngFor="let order of (orders$ | async )">
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{order.fullName}}, {{order.company}}
+        </mat-panel-title>
+        <mat-panel-description fxLayout="column" fxLayoutAlign="start start">
+          <p>{{order.email}}</p>
+          <p>{{order.phone}}</p>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Коментар: {{order.comment}}</p>
+      <p>Файли:
+        <button *ngFor="let imageUrl of order.fileURLs" mat-button>
+          <a class="app-a" [href]="imageUrl" target="_blank" rel="noopener"> Скачати </a>
+        </button>
+      </p>
+    </mat-expansion-panel>
+  </div>
+</mat-accordion>
