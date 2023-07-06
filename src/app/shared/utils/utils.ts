@@ -1,4 +1,6 @@
 import { Constants } from '../constants/constants';
+import { DocumentChangeAction } from '@angular/fire/compat/firestore';
+import { CatalogItemModel } from '@app/shared';
 
 /**
  * Utility class that providers methods for shared data manipulations

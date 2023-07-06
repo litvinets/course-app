@@ -23,7 +23,7 @@ import { environment } from "../../../../environments/environment";
 import { User } from "./user.models";
 import { NotificationsService } from "@app/shared/services";
 import {UserProfile, UserProfileRequest} from "@app/shared/models";
-import {Role} from "@app/shared/enums";
+import { FirebaseCollections } from '@app/shared/constants/firebase-collections';
 
 type Action = fromActions.All;
 
@@ -43,16 +43,13 @@ export class UserEffects {
       switchMap(() => this.afAuth.authState.pipe(take(1))),
       switchMap((authState: firebase.User) => {
         if (authState) {
-          // const user = authState.multiFactor["user"];
-          // return of(new fromActions.InitAuthorized(user.uid, user || null));
+
           return this.afs
-            .doc<User>(`users/${authState.uid}`)
+            .doc<User>(`${FirebaseCollections.USERS}/${authState.uid}`)
             .valueChanges()
             .pipe(
               take(1),
               map((data) => {
-                // const user = authState.multiFactor["user"];
-                // return new fromActions.InitAuthorized(user.uid, user || null);
                 return new fromActions.InitAuthorized(
                   authState.uid,
                   data || null
@@ -80,7 +77,7 @@ export class UserEffects {
         ).pipe(
           switchMap((signInState: UserCredential) =>
             this.afs
-              .doc<User>(`users/${signInState.user.uid}`)
+              .doc<User>(`${FirebaseCollections.USERS}/${signInState.user.uid}`)
               .valueChanges()
               .pipe(
                 take(1),
@@ -162,7 +159,7 @@ export class UserEffects {
         uid: state.uid,
       })),
       switchMap((user: UserProfile) =>
-        from(this.afs.collection("users").doc(user.uid).set(user)).pipe(
+        from(this.afs.collection(FirebaseCollections.USERS).doc(user.uid).set(user)).pipe(
           map(() => new fromActions.CreateUserSuccess(user)),
           catchError((error: string) => of(new fromActions.CreateUserFail(error)))
         )
@@ -175,7 +172,7 @@ export class UserEffects {
       ofType(fromActions.Types.UPDATE_USER),
       map((action: fromActions.CreateUser) => action.user),
       switchMap((user: UserProfile) =>
-        from(this.afs.collection("users").doc(user.uid).set(user)).pipe(
+        from(this.afs.collection(FirebaseCollections.USERS).doc(user.uid).set(user)).pipe(
           map(() => new fromActions.UpdateUserSuccess(user)),
           catchError((error) => of(new fromActions.UpdateUserFail(error)))
         )
