@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as fromUser from '@app/shared/store/user';
 import * as fromOrders from '@app/shared/store/orders';
+import { Order, OrderStatus } from '@app/shared/store/orders';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ValidationConstants, ValidationPatterns } from '@app/shared';
 import { EMAIL_REGEX, NUMBERS_REGEX } from '@app/shared/constants/regex-constants';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { Order } from '@app/shared/store/orders';
+import { FileItem } from '@app/shared/models';
 
 @Component({
   selector: 'app-add-order',
@@ -53,7 +54,7 @@ export class AddOrderComponent implements OnInit {
         ],
       }),
       comment: new FormControl(''),
-      fileURLs: new FormControl(''),
+      files: new FormControl(''),
     });
   }
 
@@ -80,11 +81,12 @@ export class AddOrderComponent implements OnInit {
     const order: Order = {
       ...this.orderFormGroup.value,
       createDate: new Date().toISOString(),
+      status: OrderStatus.New
     }
     this.store.dispatch(new fromOrders.CreateOrder(order));
   }
 
-  onAddFiles(data: string | string[]): void {
-    this.orderFormGroup.get('fileURLs').patchValue(data);
+  onAddFiles(data: FileItem | FileItem[]): void {
+    this.orderFormGroup.get('files').patchValue(data);
   }
 }

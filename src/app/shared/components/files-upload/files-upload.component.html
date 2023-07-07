@@ -22,14 +22,14 @@
   </ng-container>
 
   <ng-template #uploadedTmpl>
-    <app-upload *ngFor="let file of files" [file]="file" (completed)="onUploadComplete($event)"></app-upload>
+    <app-upload *ngFor="let file of files" [file]="file" (completed)="onUploadComplete(file.name, $event)"></app-upload>
   </ng-template>
 
   <ng-container *ngIf="!imageFile">
-    <button *ngIf="!filesURLs.length" class="button" mat-raised-button mat-dialog-close (click)="onClose()">
+    <button *ngIf="!fileItems.length" class="button" mat-raised-button mat-dialog-close (click)="onClose()">
       Закрити
     </button>
-    <button *ngIf="filesURLs.length" class="button" mat-raised-button mat-dialog-close (click)="onComplete()">
+    <button *ngIf="fileItems.length" class="button" mat-raised-button mat-dialog-close (click)="onComplete()">
       Завершити
     </button>
   </ng-container>

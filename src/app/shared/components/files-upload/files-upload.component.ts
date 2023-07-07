@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FilesUploadData } from '@app/shared/models';
+import { FileItem, FilesUploadData } from '@app/shared/models';
 
 @Component({
   selector: 'app-files-upload',
@@ -12,7 +12,7 @@ export class FilesUploadComponent implements OnInit {
   files: File[] = [];
   imageFile: File;
   isError: boolean;
-  filesURLs: string[] = [];
+  fileItems: FileItem[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<FilesUploadComponent>,
@@ -41,8 +41,8 @@ export class FilesUploadComponent implements OnInit {
     }
   }
 
-  onUploadComplete(url: string): void {
-    this.filesURLs.push(url);
+  onUploadComplete(name: string, url: string): void {
+    this.fileItems.push({name,url});
   }
 
   onClose(): void {
@@ -50,7 +50,7 @@ export class FilesUploadComponent implements OnInit {
   }
 
   onComplete(): void {
-    const data = this.data.multiple ? this.filesURLs : this.filesURLs[0];
+    const data = this.data.multiple ? this.fileItems : this.fileItems[0];
     this.dialogRef.close(data);
   }
 

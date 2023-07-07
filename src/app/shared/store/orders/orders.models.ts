@@ -1,8 +1,17 @@
+import { FileItem } from '@app/shared/models';
+
 export enum OrderStatus {
   New = 'New',
   InProgress = 'InProgress',
   Completed = 'Completed',
   Canceled = 'Canceled',
+}
+
+export enum OrderStatusUkr {
+  New = 'Нове замовлення',
+  InProgress = 'В обробці',
+  Completed = 'Завершене',
+  Canceled = 'Відмінене',
 }
 
 export interface Order {
@@ -13,7 +22,7 @@ export interface Order {
   email: string;
   phone: string;
   comment: string;
-  fileURLs: string[];
+  files: FileItem[];
   createDate: string;
   status: OrderStatus;
 }

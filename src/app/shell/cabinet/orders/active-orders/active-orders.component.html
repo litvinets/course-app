@@ -1,20 +1,29 @@
 <mat-accordion>
   <div class="order-item" *ngFor="let order of (orders$ | async )">
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
+    <mat-expansion-panel hideToggle >
+      <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center start">
+        <mat-panel-title class="panel-header">
           {{order.fullName}}, {{order.company}}
         </mat-panel-title>
-        <mat-panel-description fxLayout="column" fxLayoutAlign="start start">
-          <p>{{order.email}}</p>
-          <p>{{order.phone}}</p>
+        <mat-panel-description class="panel-body">
+          <div>
+            <p>Дата: {{order.createDate  | date : 'shortDate'}}</p>
+            <p>Статус замовлення: {{OrderStatusUkr[order.status] || 'Невідомо'}}</p></div>
+          <div fxLayout="row">
+            <button mat-button> Відмінити</button>
+            <button mat-button> Прийняти</button>
+          </div>
+
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Коментар: {{order.comment}}</p>
-      <p>Файли:
-        <button *ngFor="let imageUrl of order.fileURLs" mat-button>
-          <a class="app-a" [href]="imageUrl" target="_blank" rel="noopener"> Скачати </a>
-        </button>
+
+      <p><strong>Дані користувача:</strong></p>
+      <p> {{order.email}}</p>
+      <p> {{order.phone}}</p>
+      <p><strong>Коментар:</strong></p>
+      <p> {{order.comment}}</p>
+      <p><strong>Файли:</strong>
+        <a *ngFor="let file of order.files" class="app-a" [href]="file.url" target="_blank" rel="noopener"> {{file.name}} </a>
       </p>
     </mat-expansion-panel>
   </div>

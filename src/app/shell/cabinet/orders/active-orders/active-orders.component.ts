@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import * as fromCatalog from '@app/shared/store/catalog';
 import { Observable } from 'rxjs';
 import { Catalog } from '@app/shared/store/catalog';
-import { Order } from '@app/shared/store/orders';
+import { Order, OrderStatusUkr } from '@app/shared/store/orders';
 
 @Component({
   selector: 'app-active-orders',
@@ -12,20 +12,8 @@ import { Order } from '@app/shared/store/orders';
   styleUrls: ['./active-orders.component.scss']
 })
 export class ActiveOrdersComponent implements OnInit {
+  readonly OrderStatusUkr = OrderStatusUkr;
   orders$: Observable<Order[]>;
-
-  orders = [
-    {
-      title: 'order title 1',
-      details: 'details 1',
-      summary: 'summary 1'
-    },
-    {
-      title: 'order title 2',
-      details: 'details 2',
-      summary: 'summary 2'
-    }
-  ];
 
   constructor(private store: Store) {
   }

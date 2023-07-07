@@ -7,6 +7,7 @@ import {FlexModule} from "@angular/flex-layout";
 import {MatButtonModule} from "@angular/material/button";
 import {AddOrderModule} from "@app/shell/cabinet/orders/add-order/add-order.module";
 import {MatExpansionModule} from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     FlexModule,
     MatButtonModule,
     AddOrderModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDividerModule
   ],
 })
 export class OrdersModule {}
