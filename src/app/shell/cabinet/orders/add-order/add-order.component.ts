@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { ValidationConstants, ValidationPatterns } from '@app/shared';
 import { EMAIL_REGEX, NUMBERS_REGEX } from '@app/shared/constants/regex-constants';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Order } from '@app/shared/store/orders';
 
 @Component({
   selector: 'app-add-order',
@@ -76,7 +77,11 @@ export class AddOrderComponent implements OnInit {
 
 
   onAddNewOrder(): void {
-    this.store.dispatch(new fromOrders.CreateOrder(this.orderFormGroup.value));
+    const order: Order = {
+      ...this.orderFormGroup.value,
+      createDate: new Date().toISOString(),
+    }
+    this.store.dispatch(new fromOrders.CreateOrder(order));
   }
 
   onAddFiles(data: string | string[]): void {

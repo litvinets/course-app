@@ -1,8 +1,8 @@
 import * as fromActions from './orders.actions';
-import { Order, OrderRequest } from '@app/shared/store/orders/orders.models';
+import { Order } from '@app/shared/store/orders/orders.models';
 
 export interface OrdersState {
-  entity: Order | OrderRequest;
+  entity: Order;
   entities: Order[];
   isLoading: boolean;
   error: string;

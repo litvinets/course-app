@@ -4,12 +4,10 @@ import {
   AngularFirestore, DocumentChangeAction,
 } from '@angular/fire/compat/firestore';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, from, map, Observable, of, switchMap, take, zip } from 'rxjs';
-import { Order, OrderRequest } from '@app/shared/store/orders/orders.models';
+import { catchError, from, map, Observable, of, switchMap, take } from 'rxjs';
+import { Order } from '@app/shared/store/orders/orders.models';
 import { NotificationsService } from '@app/shared/services';
 import { FirebaseCollections } from '@app/shared/constants/firebase-collections';
-import { CatalogItemModel } from '@app/shared';
-import { Catalog } from '@app/shared/store/catalog';
 import { documentToItem } from '@app/shared/utils/documentToItem';
 
 type Action = fromActions.All;
@@ -24,8 +22,8 @@ export class OrdersEffects {
     return this.actions.pipe(
       ofType(fromActions.Types.CREATE_ORDER),
       map((action: fromActions.CreateOrder) => action.order),
-      switchMap((order: OrderRequest) =>
-        from(this.afs.collection('orders').add(order)).pipe(
+      switchMap((order: Order) =>
+        from(this.afs.collection(FirebaseCollections.ORDERS).add(order)).pipe(
           map(() => {
             this.notificationsService.onSuccess('Замовлення успішно додано!');
             return new fromActions.CreateOrderSuccess(order);

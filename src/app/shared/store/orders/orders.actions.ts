@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
-import { OrderRequest, Order } from '@app/shared/store/orders/orders.models';
-import { Catalog } from '@app/shared/store/catalog';
+import { Order } from '@app/shared/store/orders/orders.models';
 
 export enum Types {
   CREATE_ORDER = '[Orders] Create: Start',
@@ -16,14 +15,14 @@ export enum Types {
 export class CreateOrder implements Action {
   readonly type = Types.CREATE_ORDER;
 
-  constructor(public order: OrderRequest) {
+  constructor(public order: Order) {
   }
 }
 
 export class CreateOrderSuccess implements Action {
   readonly type = Types.CREATE_ORDER_SUCCESS;
 
-  constructor(public order: OrderRequest) {
+  constructor(public order: Order) {
   }
 }
 
