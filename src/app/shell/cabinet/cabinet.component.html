@@ -1,11 +1,10 @@
 
 <nav class="nav" mat-tab-nav-bar>
   <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'/cabinet/orders/active'">АКТУАЛЬНІ ЗАМОВЛЕННЯ</a>
-  <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'/archive'">АРХІВ</a>
+  <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'/cabinet/orders/archive'">АРХІВ</a>
 </nav>
+<mat-divider></mat-divider>
 <div fxLayout="row" fxLayoutAlign="end center" class="btn-add-order">
   <button mat-raised-button type="submit" routerLink="/add-order">Додати замовлення самостійно</button>
 </div>
-<mat-divider></mat-divider>
-
 <router-outlet></router-outlet>

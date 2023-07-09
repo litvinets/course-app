@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FilesUploadComponent } from '@app/shared/components/files-upload/files-upload.component';
+import { FileItem } from '@app/shared/models';
 
 @Directive({
   selector: '[appFilesUpload]',
@@ -15,7 +16,7 @@ export class FilesUploadDirective {
   @Input() multiple: boolean;
   @Input() crop: boolean;
 
-  @Output() changed = new EventEmitter<string | string[]>();
+  @Output() changed = new EventEmitter<FileItem | FileItem[]>();
 
   constructor(private dialog: MatDialog) {
   }
@@ -35,6 +36,6 @@ export class FilesUploadDirective {
     });
     dialogModal
       .afterClosed()
-      .subscribe((result: string | string[]) => this.changed.emit(result || null));
+      .subscribe((result: FileItem | FileItem[]) => this.changed.emit(result || null));
   }
 }

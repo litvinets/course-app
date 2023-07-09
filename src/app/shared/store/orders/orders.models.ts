@@ -1,21 +1,30 @@
-export interface OrderRequest {
-  fullName: string;
-  company: string;
-  email: string;
-  phone: string;
-  comment: string;
-  imageUrls: string[];
+import { FileItem } from '@app/shared/models';
+
+export enum OrderStatus {
+  New = 'New',
+  InProgress = 'InProgress',
+  Completed = 'Completed',
+  Canceled = 'Canceled',
+}
+
+export enum OrderStatusUkr {
+  New = 'Нове замовлення',
+  InProgress = 'В обробці',
+  Completed = 'Завершене',
+  Canceled = 'Відмінене',
 }
 
 export interface Order {
-  uid: string;
+  id: string;
   created: string;
   fullName: string;
   company: string;
   email: string;
   phone: string;
   comment: string;
-  fileURLs: string[];
+  files: FileItem[];
+  createDate: string;
+  status: OrderStatus;
 }
 
 
