@@ -3,7 +3,9 @@
 }
 .panel{
   &-header{
-    width: 30%;
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
   }
   &-body{
     display: flex;
