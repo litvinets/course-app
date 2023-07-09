@@ -1,1 +1,3 @@
-<p>archive-orders works!</p>
+<app-orders-list [orders]="orders$ | async"
+                 (orderUpdate)="onOrderUpdate($event)"
+                 (deleteOrder)="onOrderDelete($event)"></app-orders-list>

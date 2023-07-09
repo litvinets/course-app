@@ -15,7 +15,7 @@ export enum OrderStatusUkr {
 }
 
 export interface Order {
-  uid: string;
+  id: string;
   created: string;
   fullName: string;
   company: string;

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as fromOrders from '@app/shared/store/orders';
+import { Order, OrderStatus } from '@app/shared/store/orders';
 import { select, Store } from '@ngrx/store';
-import * as fromCatalog from '@app/shared/store/catalog';
 import { Observable } from 'rxjs';
-import { Catalog } from '@app/shared/store/catalog';
-import { Order, OrderStatusUkr } from '@app/shared/store/orders';
+import { ACTIVE_ORDER_STATUSES } from '@app/shared';
 
 @Component({
   selector: 'app-active-orders',
@@ -12,15 +11,23 @@ import { Order, OrderStatusUkr } from '@app/shared/store/orders';
   styleUrls: ['./active-orders.component.scss']
 })
 export class ActiveOrdersComponent implements OnInit {
-  readonly OrderStatusUkr = OrderStatusUkr;
   orders$: Observable<Order[]>;
+
+  private readonly activeOrderStatuses: OrderStatus [] = ACTIVE_ORDER_STATUSES;
 
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new fromOrders.ReadOrders());
+    this.store.dispatch(new fromOrders.ReadOrders(this.activeOrderStatuses));
     this.orders$ = this.store.pipe(select(fromOrders.getOrders));
   }
 
+  onOrderUpdate(order: Order): void {
+    this.store.dispatch(new fromOrders.UpdateOrder(order, this.activeOrderStatuses));
+  }
+
+  onOrderDelete(): void {
+
+  }
 }

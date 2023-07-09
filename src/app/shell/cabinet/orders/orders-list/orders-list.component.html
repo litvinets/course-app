@@ -1,0 +1,62 @@
+<ng-container *ngIf="orders?.length; else noResultTmpl">
+  <mat-accordion>
+    <div class="order-item" *ngFor="let order of orders">
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center start">
+          <mat-panel-title class="panel-header">
+            {{order.fullName}}, {{order.company}}
+          </mat-panel-title>
+          <mat-panel-description class="panel-body">
+            <div>
+              <p>Дата: {{order.createDate  | date : 'shortDate'}}</p>
+              <p>Статус: <strong>{{OrderStatusUkr[order.status] || 'Невідомо'}}</strong></p></div>
+            <div fxLayout="row">
+              <ng-container *ngIf="activeOrderStatuses.includes(order.status); else deleteOrderTmpl">
+                <button
+                  *ngIf="order.status === OrderStatus.New"
+                  mat-button
+                  (click)="onApprove($event, order)">
+                  Прийняти
+                </button>
+                <button
+                  *ngIf="order.status === OrderStatus.InProgress"
+                  mat-button
+                  (click)="onComplete($event, order)">
+                  Завершити
+                </button>
+                <button
+                  *ngIf="order.status !== OrderStatus.Completed"
+                  mat-button
+                  (click)="onCancel($event, order)">
+                  Відмінити
+                </button>
+              </ng-container>
+              <ng-template #deleteOrderTmpl>
+                <button
+                  mat-button
+                  (click)="onOrderDelete($event, order)">
+                  Видалити
+                </button>
+              </ng-template>
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <p><strong>Дані користувача:</strong></p>
+        <p> {{order.email}}</p>
+        <p> {{order.phone}}</p>
+        <p><strong>Коментар:</strong></p>
+        <p *ngIf="order.comment"> {{order.comment}}</p>
+        <p *ngIf="order.files?.length"><strong>Файли:</strong>
+          <a *ngFor="let file of order.files" class="app-a" [href]="file.url" target="_blank"
+             rel="noopener"> {{file.name}} </a>
+        </p>
+      </mat-expansion-panel>
+    </div>
+
+  </mat-accordion>
+</ng-container>
+
+<ng-template #noResultTmpl>
+  <h3 fxLayout="row" fxLayoutAlign="center center">Замовлення немає</h3>
+</ng-template>

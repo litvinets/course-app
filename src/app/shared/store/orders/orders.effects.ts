@@ -1,15 +1,15 @@
 import * as fromActions from './orders.actions';
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore, DocumentChangeAction,
-} from '@angular/fire/compat/firestore';
+import { AngularFirestore, DocumentChangeAction, } from '@angular/fire/compat/firestore';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, finalize, from, map, Observable, of, switchMap, take } from 'rxjs';
-import { Order } from '@app/shared/store/orders/orders.models';
+import { Order, OrderStatus } from '@app/shared/store/orders/orders.models';
 import { NotificationsService } from '@app/shared/services';
 import { FirebaseCollections } from '@app/shared/constants/firebase-collections';
 import { documentToItem } from '@app/shared/utils/documentToItem';
 import { Location } from '@angular/common';
+import firebase from 'firebase/compat';
+import { ARCHIVE_ORDER_STATUSES } from '@app/shared';
 
 type Action = fromActions.All;
 
@@ -40,12 +40,34 @@ export class OrdersEffects {
     );
   });
 
+  updateOrder$: Observable<Action> = createEffect(() => {
+    return this.actions.pipe(
+      ofType(fromActions.Types.UPDATE_ORDER),
+      map((action: fromActions.UpdateOrder) => [action.order, action.statuses]),
+      switchMap(([order, statuses]: [Order, OrderStatus[]]) => {
+          return from(this.afs.collection(FirebaseCollections.ORDERS).doc(order.id).set(order)).pipe(
+            map(() => {
+              new fromActions.UpdateOrderSuccess(order);
+              return new fromActions.ReadOrders(statuses);
+            }),
+            catchError((error) => of(new fromActions.UpdateOrderFail(error)))
+          );
+        }
+      )
+    );
+  });
+
   read$: Observable<Action> = createEffect(() => {
     return this.actions.pipe(
       ofType(fromActions.Types.READ_ORDERS),
-      switchMap(() => {
+      map((action: fromActions.ReadOrders) => action.statuses),
+      switchMap((statuses: OrderStatus[]) => {
         return this.afs
-          .collection(FirebaseCollections.ORDERS)
+          .collection(FirebaseCollections.ORDERS, (
+              (query: firebase.firestore.Query) =>
+                query.where('status', 'in', statuses)
+            )
+          )
           .snapshotChanges()
           .pipe(
             take(1),
@@ -57,6 +79,24 @@ export class OrdersEffects {
             catchError((err) => of(new fromActions.ReadOrdersFail(err.message)))
           );
       })
+    );
+  });
+
+
+  deleteOrder$: Observable<Action> = createEffect(() => {
+    return this.actions.pipe(
+      ofType(fromActions.Types.DELETE_ORDER),
+      map((action: fromActions.UpdateOrder) => action.order),
+      switchMap((order: Order) => {
+          return from(this.afs.collection(FirebaseCollections.ORDERS).doc(order.id).delete()).pipe(
+            map(() => {
+              new fromActions.DeleteOrderSuccess();
+              return new fromActions.ReadOrders(ARCHIVE_ORDER_STATUSES);
+            }),
+            catchError((error) => of(new fromActions.UpdateOrderFail(error)))
+          );
+        }
+      )
     );
   });
 }
