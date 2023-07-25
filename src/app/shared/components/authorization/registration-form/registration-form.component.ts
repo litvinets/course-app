@@ -7,7 +7,6 @@ import {
 } from "@angular/forms";
 import {
   EMAIL_REGEX,
-  NUMBERS_REGEX,
   PASSWORD_REGEX,
 } from "@app/shared/constants/regex-constants";
 import { ValidationPatterns } from "@app/shared";

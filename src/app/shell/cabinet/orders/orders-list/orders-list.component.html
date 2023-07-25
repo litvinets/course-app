@@ -13,28 +13,28 @@
             <div fxLayout="row">
               <ng-container *ngIf="activeOrderStatuses.includes(order.status); else deleteOrderTmpl">
                 <button
-                  *ngIf="order.status === OrderStatus.New"
-                  mat-button
-                  (click)="onApprove($event, order)">
+                    *ngIf="order.status === OrderStatus.New"
+                    mat-button
+                    (click)="onUpdateOrderStatus($event, order, OrderStatus.InProgress)">
                   Прийняти
                 </button>
                 <button
-                  *ngIf="order.status === OrderStatus.InProgress"
-                  mat-button
-                  (click)="onComplete($event, order)">
+                    *ngIf="order.status === OrderStatus.InProgress"
+                    mat-button
+                    (click)="onUpdateOrderStatus($event, order, OrderStatus.Completed)">
                   Завершити
                 </button>
                 <button
-                  *ngIf="order.status !== OrderStatus.Completed"
-                  mat-button
-                  (click)="onCancel($event, order)">
+                    *ngIf="order.status !== OrderStatus.Completed"
+                    mat-button
+                    (click)="onUpdateOrderStatus($event, order, OrderStatus.Canceled)">
                   Відмінити
                 </button>
               </ng-container>
               <ng-template #deleteOrderTmpl>
                 <button
-                  mat-button
-                  (click)="onOrderDelete($event, order)">
+                    mat-button
+                    (click)="onOrderDelete($event, order)">
                   Видалити
                 </button>
               </ng-template>
@@ -53,10 +53,8 @@
         </p>
       </mat-expansion-panel>
     </div>
-
   </mat-accordion>
 </ng-container>
-
 <ng-template #noResultTmpl>
   <h3 fxLayout="row" fxLayoutAlign="center center">Замовлення немає</h3>
 </ng-template>

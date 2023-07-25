@@ -9,6 +9,7 @@ import {ValidationModule} from "@app/shared/components/validation/validation.mod
 import {FlexModule} from "@angular/flex-layout";
 import {MatButtonModule} from "@angular/material/button";
 import {FilesUploadModule} from "@app/shared/components/files-upload/files-upload.module";
+import { SharedModule } from "@app/shared/shared.module";
 
 @NgModule({
   declarations: [AddOrderComponent],
@@ -21,7 +22,8 @@ import {FilesUploadModule} from "@app/shared/components/files-upload/files-uploa
     ValidationModule,
     FlexModule,
     MatButtonModule,
-    FilesUploadModule
+    FilesUploadModule,
+    SharedModule
   ]
 })
 export class AddOrderModule { }

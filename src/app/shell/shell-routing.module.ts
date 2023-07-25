@@ -11,6 +11,7 @@ import { NotFoundPageComponent } from '@app/shell/not-found-page/not-found-page.
 import { CabinetComponent } from '@app/shell/cabinet/cabinet.component';
 import { SettingsComponent } from '@app/shell/settings/settings.component';
 import { AddOrderComponent } from '@app/shell/cabinet/orders/add-order/add-order.component';
+import { IsAuthorizedGuard } from "@app/shell/cabinet/is-authorized.guard";
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
     component: CabinetComponent,
     loadChildren: () =>
       import('./cabinet/cabinet.module').then((m) => m.CabinetModule),
+    canLoad: [IsAuthorizedGuard]
   },
   {
     path: 'settings',
