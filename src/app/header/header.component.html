@@ -27,13 +27,16 @@
 
 <ng-template #AuthTmpl>
   <button mat-button [matMenuTriggerFor]="menu">
-    {{(user$ | async)?.fullName}}
+    <ng-container *ngIf="user">{{user.fullName}}</ng-container>
     <mat-icon>account_circle</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="/settings">Налаштування</button>
-    <button mat-menu-item routerLink="/cabinet/orders/active">Замовлення</button>
+    <ng-container *ngIf="user">
+      <button mat-menu-item [routerLink]="orderLink" [queryParams]="{ page: 'active', uid: user.uid}">Замовлення
+      </button>
+    </ng-container>
+
     <button mat-menu-item (click)="signOut.emit()">Вийти</button>
   </mat-menu>
-
 </ng-template>

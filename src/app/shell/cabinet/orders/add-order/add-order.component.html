@@ -27,7 +27,13 @@
     <mat-form-field>
       <span matPrefix>+38 &nbsp;</span>
       <mat-label>Номер телефону</mat-label>
-      <input type="tel" matInput formControlName="phone" placeholder="555-555-1234">
+      <input
+        type="tel"
+        appDigitOnly
+        matInput
+        maxlength="9"
+        formControlName="phone"
+        placeholder="555-555-1234">
     </mat-form-field>
     <app-validation [control]="orderFormGroup.controls.phone"></app-validation>
 

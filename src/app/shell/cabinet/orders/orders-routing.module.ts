@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActiveOrdersComponent } from '@app/shell/cabinet/orders/active-orders/active-orders.component';
-import { ArchiveOrdersComponent } from '@app/shell/cabinet/orders/archive-orders/archive-orders.component';
+import { AdminOrdersListComponent } from "@app/shell/cabinet/orders/admin-orders-list/admin-orders-list.component";
+import { UserOrdersComponent } from "@app/shell/cabinet/orders/user-orders/user-orders.component";
+import { IsAdminGuard } from "@app/shell/cabinet/orders/is-admin.guard";
 
 const routes: Routes = [
   {
-    path: 'active',
-    component: ActiveOrdersComponent,
-  },
-  {
-    path: 'archive',
-    component: ArchiveOrdersComponent,
+    path: 'user-orders',
+    component: UserOrdersComponent
   },
 ];
 

@@ -15,9 +15,10 @@ type Action = fromActions.All;
 
 @Injectable()
 export class OrdersEffects {
-  constructor(private actions: Actions, private afs: AngularFirestore, private notificationsService: NotificationsService,
-              private location: Location
-  ) {
+  constructor(private actions: Actions,
+              private afs: AngularFirestore,
+              private notificationsService: NotificationsService,
+              private location: Location) {
   }
 
   createOrder$: Observable<Action> = createEffect(() => {
@@ -60,12 +61,19 @@ export class OrdersEffects {
   read$: Observable<Action> = createEffect(() => {
     return this.actions.pipe(
       ofType(fromActions.Types.READ_ORDERS),
-      map((action: fromActions.ReadOrders) => action.statuses),
-      switchMap((statuses: OrderStatus[]) => {
+      map((action: fromActions.ReadOrders) => action),
+      switchMap((action: fromActions.ReadOrders) => {
         return this.afs
           .collection(FirebaseCollections.ORDERS, (
-              (query: firebase.firestore.Query) =>
-                query.where('status', 'in', statuses)
+              (query: firebase.firestore.Query) => {
+                let filteredOrders: firebase.firestore.Query<firebase.firestore.DocumentData>;
+                if (action.uid) {
+                  filteredOrders = query.where('uid', '==', action.uid).where('status', 'in', action.statuses);
+                } else {
+                  filteredOrders = query.where('status', 'in', action.statuses);
+                }
+                return filteredOrders;
+              }
             )
           )
           .snapshotChanges()
