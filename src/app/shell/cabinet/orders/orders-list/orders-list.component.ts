@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Order, OrderStatus, OrderStatusUkr } from '@app/shared/store/orders';
 import { ACTIVE_ORDER_STATUSES } from '@app/shared';
+import { Store } from "@ngrx/store";
+import * as fromOrders from "@app/shared/store/orders";
 
 @Component({
   selector: 'app-orders-list',
@@ -14,32 +16,18 @@ export class OrdersListComponent {
   readonly OrderStatus = OrderStatus;
   readonly activeOrderStatuses: OrderStatus [] = ACTIVE_ORDER_STATUSES;
 
-  @Output() orderUpdate = new EventEmitter<Order>();
-  @Output() deleteOrder = new EventEmitter<Order>();
-
-  constructor() { }
-
-  onCancel(event: Event, order: Order): void {
-    this.updateOrderStatus(event, {...order, status: OrderStatus.Canceled});
-  }
-
-  onApprove(event: Event, order: Order): void {
-    this.updateOrderStatus(event, {...order, status: OrderStatus.InProgress});
-
-  }
-
-  onComplete(event: Event, order: Order): void {
-    this.updateOrderStatus(event, {...order, status: OrderStatus.Completed});
-
-  }
+  constructor(private store: Store) {}
 
   onOrderDelete(event: Event, order: Order): void {
     event.stopPropagation();
-    this.deleteOrder.emit(order)
+    this.store.dispatch(new fromOrders.DeleteOrder(order));
   }
 
-  private updateOrderStatus(event: Event, order: Order): void {
+  onUpdateOrderStatus(event: Event, order: Order, orderStatus: OrderStatus): void {
     event.stopPropagation();
-    this.orderUpdate.emit(order)
+    this.store.dispatch(new fromOrders.UpdateOrder({
+      ...order,
+      status: orderStatus
+    }, this.activeOrderStatuses));
   }
 }

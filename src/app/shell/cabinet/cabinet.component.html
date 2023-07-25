@@ -1,10 +1,28 @@
+<ng-container *ngIf="user">
+  <nav class="nav" mat-tab-nav-bar [tabPanel]="tabPanel">
+    <ng-container *ngIf="user.role === UserRole.Admin; else userLinkTmpl">
+      <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'/cabinet/orders/admin-orders'"
+         [queryParams]="{ page: 'active'}">АКТУАЛЬНІ ЗАМОВЛЕННЯ</a>
+      <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'/cabinet/orders/admin-orders'"
+         [queryParams]="{ page: 'archive'}">АРХІВ</a>
+    </ng-container>
 
-<nav class="nav" mat-tab-nav-bar>
-  <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'/cabinet/orders/active'">АКТУАЛЬНІ ЗАМОВЛЕННЯ</a>
-  <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'/cabinet/orders/archive'">АРХІВ</a>
-</nav>
-<mat-divider></mat-divider>
-<div fxLayout="row" fxLayoutAlign="end center" class="btn-add-order">
-  <button mat-raised-button type="submit" routerLink="/add-order">Додати замовлення самостійно</button>
-</div>
-<router-outlet></router-outlet>
+    <ng-template #userLinkTmpl>
+      <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'/cabinet/orders/user-orders'"
+         [queryParams]="{ page: 'active', uid: user.uid}">МОЇ ЗАМОВЛЕННЯ</a>
+      <a class="link" mat-tab-link [routerLinkActive]="['app-a_active']" [routerLink]="'/cabinet/orders/user-orders'"
+         [queryParams]="{ page: 'archive', uid: user.uid}">АРХІВ</a>
+    </ng-template>
+  </nav>
+
+  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+
+  <mat-divider></mat-divider>
+  <div fxLayout="row" fxLayoutAlign="end center" class="btn-add-order">
+    <button mat-raised-button type="submit" routerLink="/add-order">Додати замовлення самостійно</button>
+  </div>
+  <router-outlet></router-outlet>
+</ng-container>
+
+
+

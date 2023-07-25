@@ -8,6 +8,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ValidationModule } from "@app/shared/components/validation/validation.module";
+import { SharedModule } from "@app/shared/shared.module";
 
 @NgModule({
   declarations: [SettingsComponent],
@@ -20,6 +21,7 @@ import { ValidationModule } from "@app/shared/components/validation/validation.m
     MatInputModule,
     ReactiveFormsModule,
     ValidationModule,
+    SharedModule
   ],
 })
 export class SettingModule {}

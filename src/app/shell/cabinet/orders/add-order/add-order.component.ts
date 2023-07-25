@@ -80,6 +80,7 @@ export class AddOrderComponent implements OnInit {
   onAddNewOrder(): void {
     const order: Order = {
       ...this.orderFormGroup.value,
+      uid: this.user.uid,
       createDate: new Date().toISOString(),
       status: OrderStatus.New
     }

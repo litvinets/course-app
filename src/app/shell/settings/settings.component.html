@@ -3,11 +3,11 @@
   <h1>Профіль користувача</h1>
 
   <form
-      autocomplete="off"
-      novalidate
-      fxLayout="column"
-      fxLayoutAlign="space-between space-between"
-      [formGroup]="profileFormGroup"
+    autocomplete="off"
+    novalidate
+    fxLayout="column"
+    fxLayoutAlign="space-between space-between"
+    [formGroup]="profileFormGroup"
   >
     <mat-form-field>
       <mat-label>Ваше ім'я</mat-label>
@@ -24,7 +24,13 @@
     <mat-form-field>
       <span matPrefix>+38 &nbsp;</span>
       <mat-label>Номер телефону</mat-label>
-      <input type="tel" matInput formControlName="phone" placeholder="555-555-1234">
+      <input
+        type="tel"
+        appDigitOnly
+        matInput
+        maxlength="9"
+        formControlName="phone"
+        placeholder="555-555-1234">
     </mat-form-field>
     <app-validation [control]="profileFormGroup.controls.phone"></app-validation>
 
@@ -38,7 +44,13 @@
   </form>
 
   <div fxLayout="row" fxLayoutAlign="end center">
-    <button mat-raised-button type="submit" (click)="onSave()" [disabled]="!isSaveEnabled">Змінити</button>
+    <button
+      mat-raised-button
+      type="submit"
+      [disabled]="!isSaveEnabled"
+      (click)="onSave()">
+      {{ user ? 'Змінити' : 'Зберегти' }}
+    </button>
   </div>
 
 </div>

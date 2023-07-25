@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ArchiveOrdersComponent } from './archive-orders.component';
+import { AdminOrdersListComponent } from './admin-orders-list.component';
 
-describe('ArchiveOrdersComponent', () => {
-  let component: ArchiveOrdersComponent;
-  let fixture: ComponentFixture<ArchiveOrdersComponent>;
+describe('AdminOrdersListComponent', () => {
+  let component: AdminOrdersListComponent;
+  let fixture: ComponentFixture<AdminOrdersListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ArchiveOrdersComponent ]
+      declarations: [ AdminOrdersListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ArchiveOrdersComponent);
+    fixture = TestBed.createComponent(AdminOrdersListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

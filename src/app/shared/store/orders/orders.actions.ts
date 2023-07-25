@@ -67,7 +67,7 @@ export class UpdateOrderFail implements Action {
 export class ReadOrders implements Action {
   readonly type = Types.READ_ORDERS;
 
-  constructor(public statuses: OrderStatus[]) {
+  constructor(public statuses: OrderStatus[], public uid?: string) {
   }
 }
 
