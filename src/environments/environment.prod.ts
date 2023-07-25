@@ -11,7 +11,7 @@ export const environment = {
             messagingSenderId: '280416194259',
         },
         actionCodeSetting: {
-            url: 'http://localhost:5200',
+            url: 'https://courseapp-c7a46.web.app',
             handleCodeInApp: true
         }
     }
